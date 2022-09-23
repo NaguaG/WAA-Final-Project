@@ -1,8 +1,7 @@
 package com.raspa.propertymanagementbackend.controllers;
 
-import com.raspa.propertymanagementbackend.dto.PropertyDTO;
-import com.raspa.propertymanagementbackend.entity.Property;
-import com.raspa.propertymanagementbackend.service.PropertyService;
+import com.raspa.propertymanagementbackend.entities.Property;
+import com.raspa.propertymanagementbackend.services.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
