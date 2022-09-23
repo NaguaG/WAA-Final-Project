@@ -16,9 +16,9 @@ public class PropertyManagementBackendApplication implements CommandLineRunner {
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(PropertyManagementBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PropertyManagementBackendApplication.class, args);
+    }
 
 
 	@Override
