@@ -1,7 +1,6 @@
-package com.raspa.propertymanagementbackend.service;
+package com.raspa.propertymanagementbackend.services;
 
-import com.raspa.propertymanagementbackend.dto.PropertyDTO;
-import com.raspa.propertymanagementbackend.entity.Property;
+import com.raspa.propertymanagementbackend.entities.Property;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

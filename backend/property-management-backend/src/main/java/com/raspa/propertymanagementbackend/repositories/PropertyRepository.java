@@ -1,6 +1,6 @@
-package com.raspa.propertymanagementbackend.repository;
+package com.raspa.propertymanagementbackend.repositories;
 
-import com.raspa.propertymanagementbackend.entity.Property;
+import com.raspa.propertymanagementbackend.entities.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

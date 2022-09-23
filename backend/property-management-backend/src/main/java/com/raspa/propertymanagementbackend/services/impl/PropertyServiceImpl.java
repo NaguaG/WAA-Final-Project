@@ -1,9 +1,8 @@
-package com.raspa.propertymanagementbackend.service.impl;
+package com.raspa.propertymanagementbackend.services.impl;
 
-import com.raspa.propertymanagementbackend.dto.PropertyDTO;
-import com.raspa.propertymanagementbackend.entity.Property;
-import com.raspa.propertymanagementbackend.repository.PropertyRepository;
-import com.raspa.propertymanagementbackend.service.PropertyService;
+import com.raspa.propertymanagementbackend.entities.Property;
+import com.raspa.propertymanagementbackend.repositories.PropertyRepository;
+import com.raspa.propertymanagementbackend.services.PropertyService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

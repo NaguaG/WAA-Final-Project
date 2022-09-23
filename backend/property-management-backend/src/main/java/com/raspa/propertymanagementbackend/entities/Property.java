@@ -1,4 +1,4 @@
-package com.raspa.propertymanagementbackend.entity;
+package com.raspa.propertymanagementbackend.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
