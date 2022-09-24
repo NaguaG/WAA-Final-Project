@@ -61,22 +61,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/categories").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/tags/{name}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/categories/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/products").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/products/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/artists").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/artists/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/songs").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/songs/{id}").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/properties").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/properties/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/register/validUsername/{username}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/register/validEmail/{email}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/manufacturers").permitAll()
                 .antMatchers("/api/token").permitAll()
                 .antMatchers("/api/users/reset-password/init").permitAll()
                 .antMatchers("/api/users/reset-password/finish").permitAll()
+
+
+
+
+
+
+
 
 
                 //DANGEROUS PUBLIC APIS

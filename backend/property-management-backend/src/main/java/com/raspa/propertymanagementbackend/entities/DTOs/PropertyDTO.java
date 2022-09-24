@@ -11,15 +11,17 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class PropertyDTO {
     private Long id;
-    private String username;
-    private String password;
-    private String fullName;
-    private String email;
-    private Long phoneNumber;
-    private String imageUrl;
-    private boolean enabled;
-    private List<PropertyDTO> properties;
+    private Boolean isForSell;
+    private Boolean isForRent;
+    private Integer numberOfRooms;
+    private Double price;
+    private String propertyType;
+    private String homeType;
+    private String description;
+    private Location location;
+    private List<Image> images;
+    private UserDTO user;
 
 }
