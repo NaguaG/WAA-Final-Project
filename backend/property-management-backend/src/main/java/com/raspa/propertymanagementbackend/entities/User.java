@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -72,17 +73,20 @@ public class User extends AbstractAuditingEntity implements UserDetails {
 
     private boolean enabled = true;
 
+    @OneToMany(mappedBy = "user")
+    private List<Property> properties;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_roles", joinColumns = {
-            @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "role_id") })
+            @JoinColumn(name = "user_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         this.roles.forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRole_name()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole_name()));
         });
         return authorities;
     }

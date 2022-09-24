@@ -1,6 +1,6 @@
 package com.raspa.propertymanagementbackend.services;
 
-import com.raspa.propertymanagementbackend.entities.Property;
+import com.raspa.propertymanagementbackend.entities.DTOs.PropertyDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.List;
 public interface PropertyService {
 
 
-    List<Property> findAll();
+    List<PropertyDTO> findAll();
 
-    Property findById(Long id);
+    PropertyDTO findById(Long id);
 
-    Property save(Property propertyDTO);
+    PropertyDTO save(PropertyDTO propertyDTO);
 
-    Property update(Long id, Property property);
+    PropertyDTO update(Long id, PropertyDTO property);
 
-    Property delete(Long id);
+    PropertyDTO delete(Long id);
 }

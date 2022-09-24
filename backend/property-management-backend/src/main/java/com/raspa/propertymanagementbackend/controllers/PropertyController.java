@@ -1,42 +1,48 @@
 package com.raspa.propertymanagementbackend.controllers;
 
-import com.raspa.propertymanagementbackend.dto.PropertyDTO;
-import com.raspa.propertymanagementbackend.entity.Property;
-import com.raspa.propertymanagementbackend.service.PropertyService;
+import com.raspa.propertymanagementbackend.entities.DTOs.PropertyDTO;
+
+import com.raspa.propertymanagementbackend.exceptions.BadRequestAlertException;
+import com.raspa.propertymanagementbackend.services.PropertyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/property")
+@RequestMapping("/properties")
 public class PropertyController {
 
-    private PropertyService propertyService;
+    private final PropertyService propertyService;
 
     @GetMapping
-    public List<Property> findAll() {
+    public List<PropertyDTO> findAll() {
         return propertyService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Property findById(@PathVariable Long id) {
+    public PropertyDTO findById(@PathVariable Long id) {
         return propertyService.findById(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_OWNER')")
     @PostMapping
-    public Property save(@RequestBody Property propertyDTO) {
+    public PropertyDTO save(@RequestBody PropertyDTO propertyDTO) {
         return propertyService.save(propertyDTO);
     }
 
+    @PreAuthorize("hasRole('ROLE_OWNER')")
     @PutMapping("/{id}")
-    public Property update(@PathVariable Long id, @RequestBody Property property) {
-        return propertyService.update(id, property);
+    public PropertyDTO update(@PathVariable Long id, @RequestBody PropertyDTO payload) {
+        if(id != payload.getId()) throw new BadRequestAlertException("Invalid ID!");
+        return propertyService.update(id, payload);
     }
 
+    @PreAuthorize("hasRole('ROLE_OWNER')")
     @DeleteMapping("/{id}")
-    public Property delete(@PathVariable Long id) {
+    public PropertyDTO delete(@PathVariable Long id) {
         return propertyService.delete(id);
     }
 

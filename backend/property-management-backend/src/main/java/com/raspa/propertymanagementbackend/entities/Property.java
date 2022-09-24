@@ -28,4 +28,7 @@ public class Property {
 
     @OneToMany(mappedBy = "property")
     private List<Image> images;
+
+    @ManyToOne
+    private User user;
 }
