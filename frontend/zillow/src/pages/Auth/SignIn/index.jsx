@@ -10,10 +10,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../slices/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isValidEmail = (email) => {
     return String(email)
@@ -40,15 +45,23 @@ export default function SignIn() {
       return;
     }
 
-    if (!isValidEmail(email)) {
-      setEmailError("Not a valid email");
-      return;
-    }
+    // if (!isValidEmail(email)) {
+    //   setEmailError("Not a valid email");
+    //   return;
+    // }
 
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    dispatch(loginUser({ email, password }))
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("ERRROR");
+      });
   };
 
   return (
