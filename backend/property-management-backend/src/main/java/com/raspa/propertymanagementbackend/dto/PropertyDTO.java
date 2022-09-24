@@ -1,7 +1,7 @@
 package com.raspa.propertymanagementbackend.dto;
 
-import com.raspa.propertymanagementbackend.entity.Image;
-import com.raspa.propertymanagementbackend.entity.Location;
+import com.raspa.propertymanagementbackend.entities.Image;
+import com.raspa.propertymanagementbackend.entities.Location;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
