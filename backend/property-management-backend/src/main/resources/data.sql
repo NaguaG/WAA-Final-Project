@@ -10,3 +10,5 @@ VALUES ('admin@gmail.com', true, 'Admin', '', 'pass', 12345, 'admin'),
 -- USER_ROLES
 INSERT INTO user_roles (user_id, role_id)
 VALUES (1, 1), (2, 2), (3, 3);
+
+-- PROPERTIES

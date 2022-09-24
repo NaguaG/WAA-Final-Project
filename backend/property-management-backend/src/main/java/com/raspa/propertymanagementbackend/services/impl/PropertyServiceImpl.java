@@ -5,6 +5,7 @@ import com.raspa.propertymanagementbackend.entities.Property;
 import com.raspa.propertymanagementbackend.exceptions.BadRequestAlertException;
 import com.raspa.propertymanagementbackend.repositories.PropertyRepository;
 import com.raspa.propertymanagementbackend.services.PropertyService;
+import com.raspa.propertymanagementbackend.services.UserSecurityService;
 import com.raspa.propertymanagementbackend.services.mappers.PropertyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     private final PropertyRepository propertyRepository;
     private final PropertyMapper propertyMapper;
+    private final UserSecurityService userSecurityService;
 
     @Override
     public List<PropertyDTO> findAll() {
@@ -33,7 +35,10 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyDTO save(PropertyDTO propertyDTO) {
-        return propertyMapper.convertToDto(propertyRepository.save(propertyMapper.convertToEntity(propertyDTO)));
+        Property property = propertyMapper.convertToEntity(propertyDTO);
+        property.setUser(userSecurityService.getUser());
+        //TODO SET IMAGE URL
+        return propertyMapper.convertToDto(propertyRepository.save(property));
     }
 
     @Override
@@ -41,7 +46,14 @@ public class PropertyServiceImpl implements PropertyService {
         Property property = propertyRepository.findById(id).orElseThrow(() -> new RuntimeException("Invalid ID!"));
         property.setHomeType(payload.getHomeType());
         property.setDescription(payload.getDescription());
-        //TODO SET REQUIRED PROPERTIES
+        property.setPropertyType(payload.getPropertyType());
+        property.setIsForRent(payload.getIsForRent());
+        property.setIsForSell(payload.getIsForSell());
+        property.setLocation(payload.getLocation());
+        property.setNumberOfRooms(payload.getNumberOfRooms());
+        property.setPrice(payload.getPrice());
+
+        // TODO SET IMAGES
 
         return propertyMapper.convertToDto(propertyRepository.save(property));
     }
