@@ -61,7 +61,7 @@ export default function SignIn() {
           flexDirection: "column",
           alignItems: "center",
         }}>
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.primary" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
