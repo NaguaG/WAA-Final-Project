@@ -10,11 +10,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
+import { isLoggedIn } from "../../slices/user/selectors";
+import { useSelector } from "react-redux";
 
 const pages = [
   { label: "Buy", to: "/buy" },
@@ -33,11 +35,11 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isSignedIn] = useState(false);
+  const isSignedIn = useSelector((state) => isLoggedIn(state));
 
   const handleOpenDrawerMenu = (event) => {
     dispatch(toogleSideBar());
-  }
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -59,7 +61,11 @@ const Header = () => {
     <AppBar sx={{ backgroundColor: "black" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <MenuIcon sx={{cursor: 'pointer'}} onClick={handleOpenDrawerMenu} size="large" />
+          <MenuIcon
+            sx={{ cursor: "pointer" }}
+            onClick={handleOpenDrawerMenu}
+            size="large"
+          />
           <Link to="/">
             <img src="/logo.jpeg" width={100} height={50} />
           </Link>

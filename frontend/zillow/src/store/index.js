@@ -4,8 +4,8 @@ import userReducer from "../slices/user/userSlice";
 
 export default configureStore({
   reducer: {
-    globalReducer : GlobalSlice.reducer
-  
+    globalReducer: GlobalSlice.reducer,
+
     user: userReducer,
   },
 });
