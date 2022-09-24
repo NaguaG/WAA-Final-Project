@@ -1,5 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import GlobalSlice from "./slices/sidebar/sidebarSlice";
 
 export default configureStore({
-  reducer: {},
+  reducer: {
+    globalReducer : GlobalSlice.reducer
+  },
 });

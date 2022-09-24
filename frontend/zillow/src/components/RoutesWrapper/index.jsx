@@ -2,17 +2,39 @@ import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
 import Dashboard from "../../pages/Dashboard";
 import HomePage from "../../pages/HomePage";
 import SignIn from "../../pages/Auth/SignIn";
+import FavList from "../../pages/Fav/";
 import Layout from "../Layout";
+import CustomDrawer from "../Drawer/CustomDrawer";
+import { Drawer } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
+
+const anchor = 'left';
 
 const RoutesWrapper = () => {
+  const dispatch = useDispatch();
+  const visible = useSelector((state) => state.globalReducer.sideBarVisible)
+
+  const toggleDrawer = () => {
+    // setState(!state);
+    dispatch(toogleSideBar())
+  }
   return (
     // Use HashRouter instead of BrowserRouter if deploying to github pages.
     <BrowserRouter>
       <Layout>
+      <Drawer
+        anchor={anchor}
+        open={visible}
+        onClose={toggleDrawer}
+      >
+        {<CustomDrawer />}
+      </Drawer>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/dashboard/fav" element={<FavList />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -10,8 +10,11 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
 
 const pages = [
   { label: "Buy", to: "/buy" },
@@ -28,8 +31,13 @@ const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isSignedIn] = useState(false);
+
+  const handleOpenDrawerMenu = (event) => {
+    dispatch(toogleSideBar());
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,6 +59,7 @@ const Header = () => {
     <AppBar sx={{ backgroundColor: "black" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <MenuIcon sx={{cursor: 'pointer'}} onClick={handleOpenDrawerMenu} size="large" />
           <Link to="/">
             <img src="/logo.jpeg" width={100} height={50} />
           </Link>
@@ -63,7 +72,7 @@ const Header = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit">
-              <MenuIcon />
+              <ExpandMoreIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
