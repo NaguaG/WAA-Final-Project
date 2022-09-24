@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -17,20 +18,16 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [showError, setShowError] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const isValidEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
 
   const onSignIn = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    setShowError(false);
 
     const email = data.get("email");
     const password = data.get("password");
@@ -45,23 +42,19 @@ export default function SignIn() {
       return;
     }
 
-    // if (!isValidEmail(email)) {
-    //   setEmailError("Not a valid email");
-    //   return;
-    // }
-
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
 
-    dispatch(loginUser({ email, password }))
-      .then(() => {
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log("ERRROR");
-      });
+    dispatch(loginUser({ email, password })).then((res) => {
+      console.log("res: ", res);
+      if (res && res.error && res.error.code === "ERR_BAD_REQUEST") {
+        setShowError(true);
+        return;
+      }
+      navigate("/");
+    });
   };
 
   return (
@@ -106,6 +99,9 @@ export default function SignIn() {
             helperText={passwordError}
             autoComplete="current-password"
           />
+          {showError && (
+            <Alert severity="error">Username or Password not correct !!!</Alert>
+          )}
           <Button
             type="submit"
             fullWidth
