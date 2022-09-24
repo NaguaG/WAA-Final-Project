@@ -29,7 +29,7 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
 
-  const [isSignedIn] = useState(true);
+  const [isSignedIn] = useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -103,7 +103,7 @@ const Header = () => {
 
           {!isSignedIn && (
             <Button
-              href="/signin"
+              onClick={() => navigate("/signin")}
               sx={{ my: 2, color: "white", display: "block" }}>
               Sign In
             </Button>
