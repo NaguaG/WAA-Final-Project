@@ -29,6 +29,7 @@ export const signupUser = createAsyncThunk("user/signup", async (params) => {
     });
     return response.data;
   } catch (err) {
+    console.log("Error: ", err);
     throw err;
   }
 });
@@ -77,14 +78,9 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(signupUser.fulfilled, (state) => {
-      state.loading = true;
-      const { token } = action.payload;
       state.loading = false;
       state.success = true;
-      state.token = token;
-      const userPayload = jwt_decode(token);
-      localStorage.setItem("token", token);
-      state.user = { ...userPayload };
+      state.error = false;
     });
     builder.addCase(signupUser.rejected, (state, action) => {
       state.loading = false;
