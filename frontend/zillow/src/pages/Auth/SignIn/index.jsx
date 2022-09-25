@@ -50,11 +50,6 @@ export default function SignIn() {
       return;
     }
 
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-
     dispatch(loginUser({ email, password })).then((res) => {
       console.log("res: ", res);
       if (res && res.error && res.error.code === "ERR_BAD_REQUEST") {
