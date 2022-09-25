@@ -6,6 +6,7 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
@@ -15,6 +16,9 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [passwordError, setPasswordError] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,6 +57,8 @@ const SignUp = () => {
         .unwrap()
         .then((result) => {
           console.log("Result: ", result);
+          setShowError(false);
+          setErrorMessage(null);
           dispatch(loginUser({ email, password }))
             .unwrap()
             .then((res) => {
@@ -61,6 +67,13 @@ const SignUp = () => {
         })
         .catch((error) => {
           console.log("Error: ", error);
+          const { status } = error;
+          if (status === 409) {
+            const { data } = error;
+            const { message } = data;
+            setShowError(true);
+            setErrorMessage(message);
+          }
         });
     }
   };
@@ -154,6 +167,11 @@ const SignUp = () => {
               />
             </Grid>
           </Grid>
+          {showError && (
+            <Alert sx={{ marginTop: 2 }} severity="error">
+              {errorMessage}!!!
+            </Alert>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -161,6 +179,7 @@ const SignUp = () => {
             sx={{ mt: 3, mb: 2 }}>
             Sign Up
           </Button>
+
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/signin" variant="body2">

@@ -15,24 +15,26 @@ export const loginUser = createAsyncThunk("user/login", async (params) => {
   }
 });
 
-export const signupUser = createAsyncThunk("user/signup", async (params) => {
-  try {
-    const response = await post("/api/users/register", {
-      username: params.username,
-      password: params.password,
-      fullName: params.fullName,
-      email: params.email,
-      phoneNumber: params.phoneNumber,
-      // TODO: Shouldn't be a url, fix on backend or remove for now
-      imageUrl:
-        "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
-    });
-    return response.data;
-  } catch (err) {
-    console.log("Error: ", err);
-    throw err;
+export const signupUser = createAsyncThunk(
+  "user/signup",
+  async (params, { rejectWithValue }) => {
+    try {
+      const response = await post("/api/users/register", {
+        username: params.username,
+        password: params.password,
+        fullName: params.fullName,
+        email: params.email,
+        phoneNumber: params.phoneNumber,
+        // TODO: Shouldn't be a url, fix on backend or remove for now
+        imageUrl:
+          "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
   }
-});
+);
 
 const initialState = {
   loading: false,
