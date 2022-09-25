@@ -1,11 +1,12 @@
-import { Box, Button, Divider, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
 import Container from '@mui/material/Container';
 import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Properties() {
+  const navigate = useNavigate();
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -27,7 +28,16 @@ export default function Properties() {
   return (
     <>
       <Container fixed>
-        <h1> Properties </h1>
+        <Grid container spacing={12} direction="row"
+          alignItems="center"
+          justifyContent="space-between">
+          <Grid item>
+            <h1> Properties </h1>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" color='success' onClick={() => navigate('/dashboard/properties/create')}>+ New</Button>
+          </Grid>
+        </Grid>
 
         <Grid container spacing={1} direction="row"
           alignItems="center"
@@ -78,7 +88,7 @@ export default function Properties() {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={() => alert('Clicked')}>Filter</Button>
+            <Button variant="contained" color='secondary' onClick={() => alert('Clicked')}>Filter</Button>
           </Grid>
         </Grid>
         <br /><br />
