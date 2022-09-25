@@ -14,6 +14,7 @@ import Applications from "../../pages/Applications";
 import CreateProperty from "../../pages/Properties/CreateProperty";
 import CreateFav from "../../pages/Fav/CreateFav";
 import SignUp from "../../pages/Auth/Signup";
+import Logout from "../../pages/Logout";
 
 const anchor = "left";
 
@@ -36,6 +37,7 @@ const RoutesWrapper = () => {
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
 
           <Route path="/dashboard/fav" element={<FavList />}></Route>
