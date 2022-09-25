@@ -8,6 +8,9 @@ import CustomDrawer from "../Drawer/CustomDrawer";
 import { Drawer } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
+import Properties from "../../pages/Properties";
+import Users from "../../pages/Users";
+import Applications from "../../pages/Applications";
 
 const anchor = 'left';
 
@@ -32,9 +35,12 @@ const RoutesWrapper = () => {
       </Drawer>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/dashboard/fav" element={<FavList />}></Route>
+          <Route path="/dashboard/properties" element={<Properties />}></Route>
+          <Route path="/dashboard/users" element={<Users />}></Route>
+          <Route path="/dashboard/applications" element={<Applications />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

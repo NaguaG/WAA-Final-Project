@@ -11,12 +11,12 @@ import { toogleSideBar } from '../../store/slices/sidebar/sidebarSlice';
 
 const firstList = [
   { label: "Dashboard", to: "/dashboard" },
-  { label: "Properties", to: "/dashboard/propertities" },
+  { label: "Properties", to: "/dashboard/properties" },
   { label: "Users", to: "/dashboard/users" }
 ];
 const secondList = [
-  { label: "Fav List", to: "/dashboard/fav" },
-  { label: "Other", to: "/dashboard/other" }
+  { label: "Applications", to: "/dashboard/applications" },
+  { label: "Fav List", to: "/dashboard/fav" }
 ];
 
 export default function CustomDrawer(props) {
@@ -37,7 +37,7 @@ export default function CustomDrawer(props) {
       <List>
         {firstList.map((text, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() =>  text.label == 'Dashboard' ? navigate(text.to) : alert('Custome Link Here')} >
+            <ListItemButton onClick={() => navigate(text.to)} >
               <ListItemText primary={text.label} />
             </ListItemButton>
           </ListItem>
