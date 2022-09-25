@@ -1,7 +1,11 @@
 import { Button, ButtonGroup, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import DeleteAlert from '../../components/DeleteAlert/DeleteAlert';
 
 export default function FavList() {
+  const [id, setId] = useState(null);
+  const navigate = useNavigate();
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -10,11 +14,33 @@ export default function FavList() {
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
 
-  const [value, setValue] = useState('');
   const [data, setData] = useState(rows);
+  const [deletModelShow, setDeletModelShow] = useState(false);
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
+  }
+
+
+  function onBtnClicked(type, id){
+    if(type == 'view'){
+      alert('view'+id)
+
+    } else if( type == 'edit'){
+      alert('edit'+id)
+
+    } else {
+      // delete
+      setId(id);
+      setDeletModelShow(!deletModelShow)
+    }
+  }
+
+  function onConfirmClicked(item){
+    setDeletModelShow(!deletModelShow)
+    console.log('====================================');
+    console.log(item);
+    console.log('====================================');
   }
 
   return (
@@ -27,7 +53,7 @@ export default function FavList() {
             <h1> FavList </h1>
           </Grid>
           <Grid item>
-            <Button variant="contained" onClick={() => alert('Clicked')}>+ New</Button>
+            <Button variant="contained" color='success' onClick={() => navigate('/dashboard/fav/create')}>+ New</Button>
           </Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -51,9 +77,9 @@ export default function FavList() {
                   <TableCell align="right">{row.calories}</TableCell>
                   <TableCell align="right">
                     <ButtonGroup variant="contained">
-                      <Button mr={2} size="small" color="secondary">View</Button>
-                      <Button size="small" color="success">Edit</Button>
-                      <Button size="small" color="error">Delete</Button>
+                      <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',1)}}>View</Button>
+                      <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',1)}}>Edit</Button>
+                      <Button size="small" color="error" onClick={()=> {onBtnClicked('delete',1)}}>Delete</Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
@@ -61,6 +87,7 @@ export default function FavList() {
             </TableBody>
           </Table>
         </TableContainer>
+        { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={() => onConfirmClicked(id)}  />}
       </Container>
     </>
   )

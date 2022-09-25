@@ -11,6 +11,8 @@ import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
 import Properties from "../../pages/Properties";
 import Users from "../../pages/Users";
 import Applications from "../../pages/Applications";
+import CreateProperty from "../../pages/Properties/CreateProperty";
+import CreateFav from "../../pages/Fav/CreateFav";
 
 const anchor = 'left';
 
@@ -37,8 +39,14 @@ const RoutesWrapper = () => {
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+
           <Route path="/dashboard/fav" element={<FavList />}></Route>
+          <Route path="/dashboard/fav/create" element={<CreateFav />}></Route>
+
           <Route path="/dashboard/properties" element={<Properties />}></Route>
+          <Route path="/dashboard/properties/create" element={<CreateProperty />}></Route>
+          <Route path="/dashboard/properties/:id/edit" element={<Properties />}></Route>
+          
           <Route path="/dashboard/users" element={<Users />}></Route>
           <Route path="/dashboard/applications" element={<Applications />}></Route>
         </Routes>
