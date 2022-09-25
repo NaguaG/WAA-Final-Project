@@ -1,7 +1,6 @@
 package com.raspa.propertymanagementbackend.entities.DTOs;
 
 import com.raspa.propertymanagementbackend.entities.Image;
-import com.raspa.propertymanagementbackend.entities.Location;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,7 @@ public class PropertyDTO {
     private String propertyType;
     private String homeType;
     private String description;
+    private List<Image> images;
     private List<ImageDTO> images;
     private UserDTO user;
     private LocationDTO location;

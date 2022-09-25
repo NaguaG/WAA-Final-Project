@@ -15,7 +15,7 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Boolean isForRent;
-    private Boolean isForBuy;
+    private Boolean isForSell;
 
     @ManyToOne
     private User user;

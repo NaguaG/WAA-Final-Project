@@ -5,7 +5,8 @@ INSERT INTO roles (role_id, role_name) VALUES (1, 'ADMIN'), (2, 'OWNER'), (3, 'C
 INSERT INTO users (email, enabled, full_name, image_url, password, phone_number, username)
 VALUES ('admin@gmail.com', true, 'Admin', '', 'pass', 12345, 'admin'),
 ('owner@gmail.com', true, 'Owner', '', 'pass', 123456, 'owner'),
-('customer@gmail.com', true, 'Customer', '', 'pass', 123457, 'customer');
+('customer@gmail.com', true, 'Customer', '', 'pass', 123457, 'customer'),
+('owner2@gmail.com', true, 'Owner 2', '', 'pass', 12345678, 'owner2');
 
 -- USER_ROLES
 INSERT INTO user_roles (user_id, role_id)
@@ -44,4 +45,5 @@ INSERT INTO fav_item (property_id, fav_id)
 VALUES  ('1','1'), ('2','2'),('1','2'),('2','1');
 
 -- APPLICATION
-INSERT INTO
+INSERT INTO application (is_for_sell, is_for_rent, property_id, user_id)
+values (true, false, 1, 2), (true, false, 2, 4), (true, false, 3, 2),(true, false, 4, 4),(true, false, 5, 2);

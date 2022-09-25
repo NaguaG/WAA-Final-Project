@@ -21,7 +21,7 @@ private final ApplicationMapper applicationMapper;
     @Override
     public ApplicationDTO save(ApplicationDTO applicationDTO){
         Application application = applicationMapper.convertToEntity(applicationDTO);
-        application.setIsForRent(application.getIsForBuy());
+        application.setIsForRent(application.getIsForSell());
         return applicationMapper.convertToDto(applicationRepository.save(application));
     }
     @Override
@@ -37,7 +37,7 @@ private final ApplicationMapper applicationMapper;
     @Override
     public ApplicationDTO update(Long id, ApplicationDTO payload ){
     Application application = applicationRepository.findById(id).orElseThrow(() -> new RuntimeException("Invalid ID !"));
-    application.setIsForBuy(payload.getIsForBuy());
+    application.setIsForSell(payload.getIsForSell());
     application.setIsForRent(payload.getIsForRent());
     return applicationMapper.convertToDto(applicationRepository.save(application));
     }

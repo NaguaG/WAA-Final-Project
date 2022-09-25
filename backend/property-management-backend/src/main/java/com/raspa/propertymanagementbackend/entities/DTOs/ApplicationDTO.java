@@ -11,7 +11,7 @@ public class ApplicationDTO {
     private Long id;
 
     private Boolean isForRent;
-    private Boolean isForBuy;
+    private Boolean isForSell;
     private UserDTO user;
     private PropertyDTO property;
 }
