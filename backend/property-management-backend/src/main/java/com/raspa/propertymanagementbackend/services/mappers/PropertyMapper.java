@@ -5,7 +5,7 @@ import com.raspa.propertymanagementbackend.entities.Property;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, LocationMapper.class})
 public interface PropertyMapper {
     PropertyMapper INSTANCE= Mappers.getMapper(PropertyMapper.class);
 
