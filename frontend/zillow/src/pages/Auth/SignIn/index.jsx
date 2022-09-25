@@ -1,4 +1,3 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,17 +10,26 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../../slices/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../../store/slices/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { isLoggedIn } from "../../../store/slices/user/selectors";
 
 export default function SignIn() {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [showError, setShowError] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const isSignedIn = useSelector((state) => isLoggedIn(state));
+
+  useEffect(() => {
+    if (isSignedIn) {
+      return navigate("/");
+    }
+  });
 
   const onSignIn = (event) => {
     event.preventDefault();
