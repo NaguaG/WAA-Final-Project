@@ -42,3 +42,5 @@ VALUES  ('First List', '1'), ('Second List', '2');
 -- FAV ITEM
 INSERT INTO fav_item (property_id, fav_id)
 VALUES  ('1','1'), ('2','2'),('1','2'),('2','1');
+
+-- APPLICATION

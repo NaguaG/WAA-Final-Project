@@ -2,7 +2,7 @@ spring:
   application:
     name: property-management-portal
   datasource:
-    password: 1
+    password: Manduul5725
     url: jdbc:postgresql://localhost:2222/property-management
     username: postgres
   jpa:
