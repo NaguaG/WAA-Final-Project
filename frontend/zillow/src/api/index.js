@@ -7,10 +7,14 @@ const axiosInstance = axios.create({
 
 const post = (url, body, headers) => {
   const token = getToken();
+  let authHeader = {};
+  if (token) {
+    authHeader["Authorization"] = `Bearer ${token}`;
+  }
   return axiosInstance.post(
     url,
     { ...body },
-    { headers: { ...headers, Authorization: `Bearer ${token}` } }
+    { headers: { ...headers, ...authHeader } }
   );
 };
 
