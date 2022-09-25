@@ -1,5 +1,15 @@
+import jwt_decode from "jwt-decode";
+
 const getToken = () => {
   return localStorage.getItem("token");
 };
 
-export { getToken };
+const decodeToken = () => {
+  const token = getToken();
+  if (token) {
+    const userPayload = jwt_decode(token);
+    return userPayload;
+  }
+};
+
+export { getToken, decodeToken };

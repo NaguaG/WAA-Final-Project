@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { post } from "../../api";
+import { post } from "../../../api";
 import jwt_decode from "jwt-decode";
+import { getToken } from "../../../modules/auth";
 
 export const loginUser = createAsyncThunk("user/login", async (params) => {
   try {
@@ -25,7 +26,15 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    loadUser: (state, action) => {
+      const token = getToken();
+      state.loading = false;
+      state.success = true;
+      state.token = token;
+      state.user = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(loginUser.pending, (state) => {
       state.loading = true;
@@ -46,5 +55,7 @@ const userSlice = createSlice({
     });
   },
 });
+
+export const { loadUser } = userSlice.actions;
 
 export default userSlice.reducer;

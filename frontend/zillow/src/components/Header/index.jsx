@@ -15,7 +15,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
-import { isLoggedIn } from "../../slices/user/selectors";
+import { isLoggedIn } from "../../store/slices/user/selectors";
 import { useSelector } from "react-redux";
 
 const pages = [
