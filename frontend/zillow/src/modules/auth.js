@@ -12,4 +12,8 @@ const decodeToken = () => {
   }
 };
 
-export { getToken, decodeToken };
+const logoutUser = () => {
+  localStorage.removeItem("token");
+};
+
+export { getToken, decodeToken, logoutUser };

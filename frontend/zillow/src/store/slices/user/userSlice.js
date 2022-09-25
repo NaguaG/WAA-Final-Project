@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { post } from "../../../api";
 import jwt_decode from "jwt-decode";
-import { getToken } from "../../../modules/auth";
+import { getToken, logoutUser } from "../../../modules/auth";
 
 export const loginUser = createAsyncThunk("user/login", async (params) => {
   try {
@@ -55,6 +55,14 @@ const userSlice = createSlice({
       state.token = token;
       state.user = action.payload;
     },
+    logout: (state) => {
+      logoutUser();
+      state.loading = false;
+      state.user = {};
+      state.token = null;
+      state.error = null;
+      state.success = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.pending, (state) => {
@@ -89,9 +97,10 @@ const userSlice = createSlice({
       state.success = false;
       state.error = true;
     });
+    /********************************************************** */
   },
 });
 
-export const { loadUser } = userSlice.actions;
+export const { loadUser, logout } = userSlice.actions;
 
 export default userSlice.reducer;
