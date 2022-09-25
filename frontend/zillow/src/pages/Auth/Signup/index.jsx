@@ -2,8 +2,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,11 +10,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signupUser } from "../../../store/slices/user/userSlice";
+import { loginUser, signupUser } from "../../../store/slices/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [passwordError, setPasswordError] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,6 +28,11 @@ const SignUp = () => {
     const confirmPassword = data.get("confirmPassword");
     const phoneNumber = data.get("phoneNumber");
 
+    if (password.length < 4 || confirmPassword.length < 4) {
+      setPasswordError("Passwords length must be atleast 4 characters ");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setPasswordError("Passwords Don't match");
       return;
@@ -37,8 +42,26 @@ const SignUp = () => {
 
     if (valid) {
       dispatch(
-        signupUser({ email, password, fullName, userName, phoneNumber })
-      );
+        signupUser({
+          email,
+          password,
+          fullName,
+          username: userName,
+          phoneNumber,
+        })
+      )
+        .unwrap()
+        .then((result) => {
+          console.log("Result: ", result);
+          dispatch(loginUser({ email, password }))
+            .unwrap()
+            .then((res) => {
+              navigate("/");
+            });
+        })
+        .catch((error) => {
+          console.log("Error: ", error);
+        });
     }
   };
 
@@ -113,6 +136,8 @@ const SignUp = () => {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                error={!!passwordError}
+                helperText={passwordError}
               />
             </Grid>
             <Grid item xs={12}>
