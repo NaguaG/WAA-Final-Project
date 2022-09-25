@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 
 
 
-export default function Dashboard() {
+export default function Applications() {
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -24,52 +24,37 @@ export default function Dashboard() {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+
   return (
     <>
       <Container fixed>
-        <h1> Dashboard </h1>
+        <h1> Applications </h1>
 
         <Grid container spacing={1} direction="row"
           alignItems="center"
-          justify="center">
-          <Grid item>
+          justify="space-between">
+          <Grid item xs={3}>
 
             <TextField
               id="outlined-multiline-flexible"
-              label="By Price"
+              label="By Property"
               value={value}
               onChange={handleChange}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={3}>
 
             <TextField
               id="outlined-multiline-flexible"
-              label="Property Type"
+              label="Submission Date"
               value={value}
               onChange={handleChange}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={3}>
 
 
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Number of Rooms"
-              value={value}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item>
-
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Home Type"
-              value={value}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item>
             <TextField
               id="outlined-multiline-flexible"
               label="Location"
@@ -77,7 +62,7 @@ export default function Dashboard() {
               onChange={handleChange}
             />
           </Grid>
-          <Grid item>
+          <Grid item xs={3}>
             <Button variant="contained" onClick={() => alert('Clicked')}>Filter</Button>
           </Grid>
         </Grid>
