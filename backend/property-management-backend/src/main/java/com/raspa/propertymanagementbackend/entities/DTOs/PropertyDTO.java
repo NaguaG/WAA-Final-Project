@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PropertyDTO {
     private Long id;
+    private String title;
     private Boolean isForSell;
     private Boolean isForRent;
     private Integer numberOfRooms;
@@ -20,8 +21,8 @@ public class PropertyDTO {
     private String propertyType;
     private String homeType;
     private String description;
-    private Location location;
     private List<Image> images;
     private UserDTO user;
+    private LocationDTO location;
 
 }

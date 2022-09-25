@@ -15,18 +15,18 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;//
+    private String title;
     private Boolean isForSell;//
     private Boolean isForRent;//
     private Integer numberOfRooms;//
     private Double price;//
     private String propertyType;//
     private String homeType;//
-
     private String description;//
     @ManyToOne
     private Location location;//
 
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private List<Image> images;//
 
     @ManyToOne
