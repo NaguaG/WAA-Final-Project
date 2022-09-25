@@ -13,42 +13,46 @@ import Users from "../../pages/Users";
 import Applications from "../../pages/Applications";
 import CreateProperty from "../../pages/Properties/CreateProperty";
 import CreateFav from "../../pages/Fav/CreateFav";
+import SignUp from "../../pages/Auth/Signup";
 
-const anchor = 'left';
+const anchor = "left";
 
 const RoutesWrapper = () => {
   const dispatch = useDispatch();
-  const visible = useSelector((state) => state.globalReducer.sideBarVisible)
+  const visible = useSelector((state) => state.globalReducer.sideBarVisible);
 
   const toggleDrawer = () => {
     // setState(!state);
-    dispatch(toogleSideBar())
-  }
+    dispatch(toogleSideBar());
+  };
   return (
     // Use HashRouter instead of BrowserRouter if deploying to github pages.
     <BrowserRouter>
       <Layout>
-      <Drawer
-        anchor={anchor}
-        open={visible}
-        onClose={toggleDrawer}
-      >
-        {<CustomDrawer />}
-      </Drawer>
+        <Drawer anchor={anchor} open={visible} onClose={toggleDrawer}>
+          {<CustomDrawer />}
+        </Drawer>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
 
           <Route path="/dashboard/fav" element={<FavList />}></Route>
           <Route path="/dashboard/fav/create" element={<CreateFav />}></Route>
 
           <Route path="/dashboard/properties" element={<Properties />}></Route>
-          <Route path="/dashboard/properties/create" element={<CreateProperty />}></Route>
-          <Route path="/dashboard/properties/:id/edit" element={<Properties />}></Route>
-          
+          <Route
+            path="/dashboard/properties/create"
+            element={<CreateProperty />}></Route>
+          <Route
+            path="/dashboard/properties/:id/edit"
+            element={<Properties />}></Route>
+
           <Route path="/dashboard/users" element={<Users />}></Route>
-          <Route path="/dashboard/applications" element={<Applications />}></Route>
+          <Route
+            path="/dashboard/applications"
+            element={<Applications />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -66,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/users/register/validUsername/{username}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/register/validEmail/{email}").permitAll()
                 .antMatchers("/api/token").permitAll()
+                .antMatchers("/api/users/register").permitAll()
                 .antMatchers("/api/users/reset-password/init").permitAll()
                 .antMatchers("/api/users/reset-password/finish").permitAll()
 

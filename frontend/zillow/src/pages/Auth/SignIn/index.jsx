@@ -17,8 +17,6 @@ import { useEffect } from "react";
 import { isLoggedIn } from "../../../store/slices/user/selectors";
 
 export default function SignIn() {
-  const [emailError, setEmailError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,24 +38,18 @@ export default function SignIn() {
     const email = data.get("email");
     const password = data.get("password");
 
-    if (!email) {
-      setEmailError("Email is required");
-      return;
-    }
+    const valid = event.currentTarget.reportValidity();
 
-    if (!password) {
-      setPasswordError("Password is required");
-      return;
+    if (valid) {
+      dispatch(loginUser({ email, password })).then((res) => {
+        console.log("res: ", res);
+        if (res && res.error && res.error.code === "ERR_BAD_REQUEST") {
+          setShowError(true);
+          return;
+        }
+        navigate("/");
+      });
     }
-
-    dispatch(loginUser({ email, password })).then((res) => {
-      console.log("res: ", res);
-      if (res && res.error && res.error.code === "ERR_BAD_REQUEST") {
-        setShowError(true);
-        return;
-      }
-      navigate("/");
-    });
   };
 
   return (
@@ -70,7 +62,7 @@ export default function SignIn() {
           flexDirection: "column",
           alignItems: "center",
         }}>
-        <Avatar sx={{ m: 1, bgcolor: "secondary.primary" }}>
+        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -78,7 +70,6 @@ export default function SignIn() {
         </Typography>
         <Box component="form" onSubmit={onSignIn} noValidate sx={{ mt: 1 }}>
           <TextField
-            error={emailError}
             margin="normal"
             required
             fullWidth
@@ -86,12 +77,9 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            helperText={emailError}
             autoFocus
-            type="email"
           />
           <TextField
-            error={passwordError}
             margin="normal"
             required
             fullWidth
@@ -99,7 +87,6 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
-            helperText={passwordError}
             autoComplete="current-password"
           />
           {showError && (
@@ -114,12 +101,12 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/forgotpassword" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

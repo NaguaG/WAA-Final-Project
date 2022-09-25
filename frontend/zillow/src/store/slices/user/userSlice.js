@@ -15,6 +15,27 @@ export const loginUser = createAsyncThunk("user/login", async (params) => {
   }
 });
 
+export const signupUser = createAsyncThunk(
+  "user/signup",
+  async (params, { rejectWithValue }) => {
+    try {
+      const response = await post("/api/users/register", {
+        username: params.username,
+        password: params.password,
+        fullName: params.fullName,
+        email: params.email,
+        phoneNumber: params.phoneNumber,
+        // TODO: Shouldn't be a url, fix on backend or remove for now
+        imageUrl:
+          "https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745",
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);
+
 const initialState = {
   loading: false,
   user: {},
@@ -49,6 +70,21 @@ const userSlice = createSlice({
       state.user = { ...userPayload };
     });
     builder.addCase(loginUser.rejected, (state, action) => {
+      state.loading = false;
+      state.success = false;
+      state.error = true;
+    });
+    /*********************************************************** */
+
+    builder.addCase(signupUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(signupUser.fulfilled, (state) => {
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    });
+    builder.addCase(signupUser.rejected, (state, action) => {
       state.loading = false;
       state.success = false;
       state.error = true;
