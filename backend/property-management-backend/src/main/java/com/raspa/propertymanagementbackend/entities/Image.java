@@ -14,9 +14,9 @@ import javax.persistence.*;
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String url;
     @ManyToOne
-    Property property;
+    private Property property;
 }
