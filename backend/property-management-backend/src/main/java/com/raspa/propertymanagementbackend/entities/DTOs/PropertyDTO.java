@@ -24,5 +24,5 @@ public class PropertyDTO {
     private List<ImageDTO> images;
     private UserDTO user;
     private LocationDTO location;
-
+    private List<ApplicationDTO> applications;
 }

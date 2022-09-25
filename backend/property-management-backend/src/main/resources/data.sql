@@ -44,3 +44,4 @@ INSERT INTO fav_item (property_id, fav_id)
 VALUES  ('1','1'), ('2','2'),('1','2'),('2','1');
 
 -- APPLICATION
+INSERT INTO

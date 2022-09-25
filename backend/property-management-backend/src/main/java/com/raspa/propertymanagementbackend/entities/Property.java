@@ -32,4 +32,9 @@ public class Property {
 
     @ManyToOne
     private User user;
+    private User user;//
+
+    @OneToMany(mappedBy = "property")
+    private List<Application> applications;
+
 }
