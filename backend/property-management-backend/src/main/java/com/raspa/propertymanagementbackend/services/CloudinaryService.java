@@ -21,7 +21,6 @@ public class CloudinaryService {
 
     @Autowired
     CloudinaryConfig cloudinaryConfig;
-
     Random random = new Random();
 
     public String upload(MultipartFile multipartFile) throws Exception {
