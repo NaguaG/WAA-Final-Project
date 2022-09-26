@@ -214,7 +214,9 @@ public class UserSecurityService implements UserDetailsService {
         return imageUrl;
     }
 
-    public List<UserDTO> getUsers() {
+    public List<UserDTO> getUsers(MultiValueMap<String, String> queryParams) {
+        if(queryParams.containsKey("username")) return userRepository.findAllByUsername(queryParams.getFirst("username"))
+                .stream().map(userMapper::convertToDtoUser).collect(Collectors.toList());
         return userRepository.findAll().stream().map(userMapper::convertToDtoUser).collect(Collectors.toList());
     }
 }

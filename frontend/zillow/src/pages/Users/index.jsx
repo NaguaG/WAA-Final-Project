@@ -18,8 +18,12 @@ export default function Users() {
   const [username, setUsername] = useState('');
   const [data, setData] = useState([]);
   useEffect(() => {
-    get('/api/users').then((res) => setData(res.data))
+    fetchData();
   }, []);
+
+  const fetchData = () => {
+    get('/api/users' + (username ? `?username=${username}` : "")).then((res) => setData(res.data))
+  }
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -28,6 +32,11 @@ export default function Users() {
   const handleChange = (event) => {
     setUsername(event.target.value);
   };
+
+  const filter = () => {
+    fetchData();
+  }
+
   return (
     <>
       <Container fixed>
@@ -43,6 +52,9 @@ export default function Users() {
               value={username}
               onChange={handleChange}
             />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" onClick={() => filter()}>Filter</Button>
           </Grid>
         </Grid>
         <br /><br />

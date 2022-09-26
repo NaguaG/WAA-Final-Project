@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -66,8 +67,8 @@ public class AccountController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public ResponseEntity<List<UserDTO>> findAllUsers(){
-        return ResponseEntity.ok().body(userSecurityService.getUsers());
+    public ResponseEntity<List<UserDTO>> findAllUsers(@RequestParam MultiValueMap<String, String> queryParams){
+        return ResponseEntity.ok().body(userSecurityService.getUsers(queryParams));
     }
 
     @GetMapping("/register/validPhoneNumber/{phoneNumber}")
