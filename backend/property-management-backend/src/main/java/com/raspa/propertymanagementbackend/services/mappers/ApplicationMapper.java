@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PropertyMapper.class, UserMapper.class})
 public interface ApplicationMapper {
     ApplicationMapper INSTANCE= Mappers.getMapper(ApplicationMapper.class);
     Application convertToEntity(ApplicationDTO applicationDTO);

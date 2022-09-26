@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,6 +17,7 @@ public class Application {
     private Long id;
     private Boolean isForRent;
     private Boolean isForSell;
+    private LocalDate submissionDate;
 
     @ManyToOne
     private User user;

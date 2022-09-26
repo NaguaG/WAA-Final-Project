@@ -1,7 +1,6 @@
 package com.raspa.propertymanagementbackend.controllers;
 
 import com.raspa.propertymanagementbackend.entities.DTOs.PropertyDTO;
-
 import com.raspa.propertymanagementbackend.exceptions.BadRequestAlertException;
 import com.raspa.propertymanagementbackend.services.PropertyService;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +23,6 @@ public class PropertyController {
     public Page<PropertyDTO> findAll(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams) {
         return propertyService.findAll(pageable, queryParams);
     }
-
     @GetMapping("/{id}")
     public PropertyDTO findById(@PathVariable Long id) {
         return propertyService.findById(id);

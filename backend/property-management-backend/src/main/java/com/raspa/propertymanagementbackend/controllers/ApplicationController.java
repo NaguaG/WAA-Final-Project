@@ -3,9 +3,10 @@ package com.raspa.propertymanagementbackend.controllers;
 import com.raspa.propertymanagementbackend.entities.DTOs.ApplicationDTO;
 import com.raspa.propertymanagementbackend.services.ApplicationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/applications")
@@ -14,8 +15,8 @@ public class ApplicationController {
     private final ApplicationService applicationService;
 
     @GetMapping
-    public List<ApplicationDTO> findAll(){
-    return applicationService.findAll();
+    public Page<ApplicationDTO> findAll(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams){
+        return applicationService.findAll(pageable, queryParams);
     }
 
     @GetMapping("/{id}")
