@@ -25,8 +25,13 @@ const HomePage = (props) => {
       maxWidth="xl">
       <ImageCarousal />
       <Container>
-        <Grid container spacing={0} sx={{ mt: 3 }}>
-          <Grid item xs={4}>
+        <Grid
+          container
+          spacing={1}
+          direction="row"
+          justifyContent={"center"}
+          sx={{ mt: 3 }}>
+          <Grid item>
             <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
               <InputLabel id="location-label">Location</InputLabel>
               <Select
@@ -41,7 +46,7 @@ const HomePage = (props) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item>
             <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
               <InputLabel id="property-label">Property Type</InputLabel>
               <Select
@@ -56,7 +61,7 @@ const HomePage = (props) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item>
             <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
               <Button variant="contained" endIcon={<SearchIcon />}>
                 Search
