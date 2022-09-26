@@ -18,4 +18,8 @@ const post = (url, body, headers) => {
   );
 };
 
+const get=(url,headers)=>{
+
+}
+
 export { post };

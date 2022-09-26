@@ -21,5 +21,4 @@ public class UserDTO {
     private String imageUrl;
     private boolean enabled;
     private List<PropertyDTO> properties;
-
 }
