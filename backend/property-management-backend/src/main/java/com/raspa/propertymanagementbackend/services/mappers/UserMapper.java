@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {RoleMapper.class})
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
@@ -18,6 +18,7 @@ public interface UserMapper {
     UserDTO convertToDto(User user);
 
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "properties", ignore = true)
     @Named("convertToDtoUser")
     UserDTO convertToDtoUser(User user);
 

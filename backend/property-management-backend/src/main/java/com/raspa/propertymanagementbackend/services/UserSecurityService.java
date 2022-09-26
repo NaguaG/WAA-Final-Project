@@ -28,6 +28,7 @@ import org.springframework.util.MultiValueMap;
 import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserSecurityService implements UserDetailsService {
@@ -211,5 +212,9 @@ public class UserSecurityService implements UserDetailsService {
         User user = getCurrentUser().orElseThrow(() -> new BadRequestAlertException("Invalid User!"));
         user.setImageUrl(imageUrl);
         return imageUrl;
+    }
+
+    public List<UserDTO> getUsers() {
+        return userRepository.findAll().stream().map(userMapper::convertToDtoUser).collect(Collectors.toList());
     }
 }

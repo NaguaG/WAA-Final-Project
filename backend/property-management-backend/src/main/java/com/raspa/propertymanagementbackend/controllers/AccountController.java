@@ -63,6 +63,13 @@ public class AccountController {
         return ResponseEntity.ok().body(userSecurityService.checkEmailUsed(email.toLowerCase()));
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> findAllUsers(){
+        return ResponseEntity.ok().body(userSecurityService.getUsers());
+    }
+
     @GetMapping("/register/validPhoneNumber/{phoneNumber}")
     public ResponseEntity<Boolean> checkEmailUsed(@PathVariable Long phoneNumber){
         return ResponseEntity.ok().body(userSecurityService.checkPhoneNumberUsed(phoneNumber));
