@@ -10,7 +10,7 @@ const params = {
   initialState: initialState,
   reducers: {
     toogleSideBar : (state, action) => {
-        state.sideBarVisible = !state.sideBarVisible
+        state.sideBarVisible = !state.sideBarVisible;
     }
   }
 }
