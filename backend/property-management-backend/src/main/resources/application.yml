@@ -2,8 +2,8 @@ spring:
   application:
     name: property-management-portal
   datasource:
-    password: Manduul5725
-    url: jdbc:postgresql://localhost:5432/property-management
+    password: 1
+    url: jdbc:postgresql://localhost:2222/property-management
     username: postgres
   jpa:
     hibernate:
