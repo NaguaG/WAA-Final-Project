@@ -30,10 +30,10 @@ public class ApplicationSpecification {
         return new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder criteriaBuilder) {
-               Join<Application, Location> applicationApplicationJoin = root.join(Application_.property);
-               // TODO Multiple Joins
 //               Join<Application, Location> applicationApplicationJoin = root.join(Application_.property);
-                return applicationApplicationJoin.get(Location_.id).in(locationId);
+               // TODO Multiple Joins
+               Join<Application, Property> applicationApplicationJoin = root.join(Application_.property);
+                return applicationApplicationJoin.get(Property_.id).in(locationId);
 
             }
         };
