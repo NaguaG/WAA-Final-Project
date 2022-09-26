@@ -23,10 +23,23 @@ const post = (url, body, headers) => {
 };
 
 const get = (url, headers) => {
-  return axiosInstance.get(
-      url,
-      {headers: {...headers, ...authSetupOptions()}}
-  );
-}
+  return axiosInstance.get(url, {
+    headers: { ...headers, ...authSetupOptions() },
+  });
+};
 
-export { post, get };
+const put = (url, body, headers) => {
+  return axiosInstance.put(
+    url,
+    { ...body },
+    { headers: { ...headers, ...authSetupOptions() } }
+  );
+};
+
+const deleteRequest = (url, headers) => {
+  return axiosInstance.delete(url, {
+    headers: { ...headers, ...authSetupOptions() },
+  });
+};
+
+export { post, get, put, deleteRequest };
