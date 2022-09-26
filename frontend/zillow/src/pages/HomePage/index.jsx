@@ -48,9 +48,13 @@ const HomePage = (props) => {
                 value={location}
                 label="Location"
                 onChange={handleChange}>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={"fairfield"}>Fairfield</MenuItem>
+                <MenuItem value={"black hawk county"}>
+                  Black Hawk County
+                </MenuItem>
+                <MenuItem value={"johnson county"}>Johnson County</MenuItem>
+                <MenuItem value={"linn county"}>Linn County</MenuItem>
+                <MenuItem value={"polk county"}>Polk County</MenuItem>
               </Select>
             </FormControl>
           </Grid>
