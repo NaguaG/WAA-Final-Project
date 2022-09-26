@@ -1,8 +1,14 @@
+import { Container } from "@mui/material";
+import ImageCarousal from "../../components/ImageCarousal";
+
 const HomePage = (props) => {
   return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
+    <Container
+      sx={{ padding: "0px !important", borderRadius: "" }}
+      component="main"
+      maxWidth="xl">
+      <ImageCarousal />
+    </Container>
   );
 };
 
