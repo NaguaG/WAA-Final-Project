@@ -1,36 +1,58 @@
+import { Satellite } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 
-export const propertyDetails = createAsyncThunk("user/login", async (params) => {
+export const fetchProperties = createAsyncThunk("properties/getAll", async (params) => {
     try {
-      const response = await post("/api/token", {
-        username: params.email,
-        password: params.password,
-      });
+      const response = await get("/api/properties");
       return response.data;
     } catch (err) {
-      throw err;
+        throw err;
     }
   });
 const initialState={
-    id:0,
-        title:null,
-        isForSell:false,
-        isForRent:false,
-        numberOfRooms:0,
-        price:0,
-        propertyType:"home",
-        homeType:"condo",
-        description:"desc this property",
-        location:"current location",
-        images:"use url",
-        user:"admin"
+    properties: [],
+    loading:false,
+    error:null,
+    success:null,
 }
+
+//==================
 const param={
     name:'property',
     initialState:initialState,
     reducers:{
-        loadData:(state)=>{
+        loadProperty:(state)=>{
 
         }
-    }
-}
+    },
+
+    extraReducers:(builder)=>{
+      builder.addCase(fetchProperty.pending, (state)=>
+      {
+        state.loading=true;
+        state.success=false;
+        state.error=false;
+        state.properties=[];
+      });
+    //========================================================
+
+    builder.addCase(fetchProperty.fulfilled,(state,action)=>{
+      state.loading=false;
+      state.success=true;
+      state.error=false;
+      state.properties=action.payload;
+    });
+
+    builder.addCase(fetchProperty.rejected, (state)=>{
+      state.properties=[];
+      state.loading=false;
+      state.success=false;
+      state.error=true;
+    })
+
+}}
+const propertySlice=createSlice(param);
+
+export default propertySlice.reducer;
+
+

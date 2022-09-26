@@ -16,6 +16,7 @@ public class Property {
     private Long id;
     private String title;
     private Boolean isForSell;
+
     private Boolean isForRent;
     private Integer numberOfRooms;
     private Double price;

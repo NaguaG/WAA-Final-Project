@@ -2,6 +2,7 @@ import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, Table
 import Container from '@mui/material/Container';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {useDispatch} from "react-redux";
 
 
 export default function Properties() {
@@ -13,6 +14,11 @@ export default function Properties() {
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ];
+
+  const dispatch=useDispatch();
+
+
+
 
   const [value, setValue] = useState('');
   const [data, setData] = useState(rows);
