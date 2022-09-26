@@ -18,13 +18,14 @@ import React, {useEffect, useState} from 'react';
 import { styled } from '@mui/material/styles';
 import {del, get, put} from "../../api";
 import DeleteAlert from "../../components/DeleteAlert/DeleteAlert";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchUsers} from "../../store/slices/users/usersSlice";
 
 
 export default function Users() {
 
   const dispatch = useDispatch();
+  const seletor = useSelector((state) => state.users);
   const [username, setUsername] = useState('');
   const [data, setData] = useState([]);
   const [deletModelShow, setDeletModelShow] = useState(false);
@@ -35,13 +36,9 @@ export default function Users() {
   }, []);
 
   const fetchData = () => {
-    dispatch(fetchUsers()).then((res) => {
-      console.log(res);
+    dispatch(fetchUsers(username)).then((res) => {
+      setData(res.payload);
     })
-  }
-
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
   }
 
   const handleChange = (event) => {

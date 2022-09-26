@@ -3,7 +3,9 @@ import {get} from "../../../api";
 
 export const fetchUsers = createAsyncThunk("users/getAll", async (params) => {
     try {
-        const response = await get("/api/users");
+        let url = "/api/users";
+        if(params) url += `?username=${params}`;
+        const response = await get(url);
         return response.data;
     } catch (err){
       throw err;
