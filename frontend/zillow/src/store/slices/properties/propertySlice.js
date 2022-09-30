@@ -3,7 +3,7 @@ import { get } from "../../../api";
 
 export const loadProperties = createAsyncThunk(
   "properties/load",
-  async (params, rejectWithValue) => {
+  async (params, { rejectWithValue }) => {
     try {
       let baseUrl = "/api/properties";
       if (params.location) {
