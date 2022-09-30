@@ -2,9 +2,11 @@ import { Button, ButtonGroup, Container, Grid, Paper, Table, TableBody, TableCel
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import DeleteAlert from '../../components/DeleteAlert/DeleteAlert';
+import CreateFav from './CreateFav';
 
 export default function FavList() {
   const [id, setId] = useState(null);
+  const [favId, setfavId] = useState(null);
   const navigate = useNavigate();
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
@@ -16,6 +18,7 @@ export default function FavList() {
 
   const [data, setData] = useState(rows);
   const [deletModelShow, setDeletModelShow] = useState(false);
+  const [createModelShow, setCreateModelShow] = useState(false);
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -26,8 +29,9 @@ export default function FavList() {
     if(type == 'view'){
       alert('view'+id)
 
-    } else if( type == 'edit'){
-      alert('edit'+id)
+    } else if( type == 'edit') {
+      setfavId(id);
+      setCreateModelShow(!createModelShow)
 
     } else {
       // delete
@@ -37,6 +41,13 @@ export default function FavList() {
   }
 
   function onConfirmClicked(item){
+    setDeletModelShow(!deletModelShow)
+    console.log('====================================');
+    console.log(item);
+    console.log('====================================');
+  }
+  
+  function onCreateConfirmClicked(item){
     setDeletModelShow(!deletModelShow)
     console.log('====================================');
     console.log(item);
@@ -53,7 +64,7 @@ export default function FavList() {
             <h1> FavList </h1>
           </Grid>
           <Grid item>
-            <Button variant="contained" color='success' onClick={() => navigate('/dashboard/fav/create')}>+ New</Button>
+            <Button variant="contained" color='success' onClick={() => setCreateModelShow(!createModelShow) }>+ New</Button>
           </Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -88,6 +99,7 @@ export default function FavList() {
           </Table>
         </TableContainer>
         { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={() => onConfirmClicked(id)}  />}
+        { createModelShow && <CreateFav item={favId}  open={createModelShow} setOpen={setCreateModelShow} onConfirmClicked={() => onCreateConfirmClicked(id)}  />}
       </Container>
     </>
   )
