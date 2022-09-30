@@ -21,7 +21,7 @@ public class PropertyDTO {
     private String propertyType;
     private String homeType;
     private String description;
-    private List<Image> images;
+    private List<ImageDTO> images;
     private UserDTO user;
     private LocationDTO location;
 

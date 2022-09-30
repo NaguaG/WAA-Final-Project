@@ -13,6 +13,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>, JpaSpecificationExecutor<User> {
 
+    List<User> findAllByUsername(String username);
     User findByUsername(String username);
 
 //    @Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
