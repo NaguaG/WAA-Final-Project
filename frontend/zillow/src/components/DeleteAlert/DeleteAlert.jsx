@@ -12,7 +12,7 @@ export default function DeleteAlert(props) {
   }
 
   return (
-    <Dialog
+    <Dialog fullWidth
         open={props.open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
