@@ -9,13 +9,18 @@ import {
   FormControl,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImageCarousal from "../../components/ImageCarousal";
 import PropertyCard from "../../components/PropertyCard";
+import { useDispatch, useSelector } from "react-redux";
+import { loadProperties } from "../../store/slices/properties/propertySlice";
+import { selectProperties } from "../../store/slices/properties/selectors";
 
 const HomePage = (props) => {
   const [location, setLocation] = useState("");
   const [propertyType, setPropertyType] = useState("");
+  const dispatch = useDispatch();
+  const properties = useSelector((state) => selectProperties(state));
 
   const handleChange = (e) => {
     if (e.target.name === "propertyType") {
@@ -24,6 +29,10 @@ const HomePage = (props) => {
       setLocation(e.target.value);
     }
   };
+
+  useEffect(() => {
+    dispatch(loadProperties({ location, propertyType }));
+  }, []);
 
   return (
     <Container
@@ -48,13 +57,11 @@ const HomePage = (props) => {
                 value={location}
                 label="Location"
                 onChange={handleChange}>
-                <MenuItem value={"fairfield"}>Fairfield</MenuItem>
-                <MenuItem value={"black hawk county"}>
-                  Black Hawk County
-                </MenuItem>
-                <MenuItem value={"johnson county"}>Johnson County</MenuItem>
-                <MenuItem value={"linn county"}>Linn County</MenuItem>
-                <MenuItem value={"polk county"}>Polk County</MenuItem>
+                <MenuItem value={"1"}>Fairfield</MenuItem>
+                <MenuItem value={"2"}>Black Hawk County</MenuItem>
+                <MenuItem value={"3"}>Johnson County</MenuItem>
+                <MenuItem value={"3"}>Linn County</MenuItem>
+                <MenuItem value={"4"}>Polk County</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -112,10 +119,10 @@ const HomePage = (props) => {
           direction="row"
           justifyContent={"center"}
           sx={{ mt: 3 }}>
-          {[1, 2, 3, 4].map((item) => {
+          {properties.map((item) => {
             return (
               <Grid item>
-                <PropertyCard />
+                <PropertyCard property={item} />
               </Grid>
             );
           })}
