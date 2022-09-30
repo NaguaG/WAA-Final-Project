@@ -61,11 +61,14 @@ const Header = () => {
     <AppBar sx={{ backgroundColor: "black" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <MenuIcon
-            sx={{ cursor: "pointer" }}
-            onClick={handleOpenDrawerMenu}
-            size="large"
-          />
+          {isSignedIn && (
+            <MenuIcon
+              sx={{ cursor: "pointer" }}
+              onClick={handleOpenDrawerMenu}
+              size="large"
+            />
+          )}
+
           <Link to="/">
             <img src="/logo.jpeg" width={100} height={50} />
           </Link>
