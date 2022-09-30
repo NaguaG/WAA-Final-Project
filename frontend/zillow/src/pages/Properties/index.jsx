@@ -56,7 +56,7 @@ export default function Properties() {
   }
   const filterVal=()=>{
     //TODO need to filter and show data 
-    dispatch(fetchProperties()).then((res) => {
+    dispatch(fetchProperties(values)).then((res) => {
       setData(res.payload);
     });
   }
@@ -148,7 +148,7 @@ export default function Properties() {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => filterVal}//alert("Clicked")
+              onClick={() => filterVal()}//alert("Clicked")
             >
               Filter
             </Button>

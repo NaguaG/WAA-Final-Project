@@ -8,7 +8,7 @@ export default configureStore({
   reducer: {
     globalReducer: GlobalSlice.reducer,
     user: userReducer,
-    properties:propertyReducer
+    properties:propertyReducer,
     users: usersReducer
   },
 });
