@@ -27,6 +27,9 @@ export default function SignIn() {
     if (isSignedIn) {
       return navigate("/");
     }
+    return () => {
+      console.log("Unmounted");
+    };
   });
 
   const onSignIn = (event) => {
