@@ -15,6 +15,9 @@ import CreateProperty from "../../pages/Properties/CreateProperty";
 import CreateFav from "../../pages/Fav/CreateFav";
 import SignUp from "../../pages/Auth/Signup";
 import Logout from "../../pages/Logout";
+import CreateUser from "../../pages/Users/CreateUser";
+import ViewUser from "../../pages/Users/ViewUser";
+import ResetUserPassword from "../../pages/Users/ResetUserPassword";
 
 const anchor = "left";
 
@@ -52,6 +55,9 @@ const RoutesWrapper = () => {
             element={<Properties />}></Route>
 
           <Route path="/dashboard/users" element={<Users />}></Route>
+          <Route path="/dashboard/users/:id/view" element={<ViewUser />}></Route>
+          <Route path="/dashboard/users/:id/edit" element={<CreateUser />}></Route>
+          <Route path="/dashboard/users/:id/passwordReset" element={<ResetUserPassword />}></Route>
           <Route
             path="/dashboard/applications"
             element={<Applications />}></Route>
