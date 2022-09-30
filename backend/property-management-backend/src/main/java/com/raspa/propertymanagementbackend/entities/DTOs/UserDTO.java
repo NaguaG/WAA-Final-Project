@@ -22,4 +22,6 @@ public class UserDTO {
     private boolean enabled;
     private List<PropertyDTO> properties;
 
+    private List<FavListDTO> favListDTOS;
+
 }
