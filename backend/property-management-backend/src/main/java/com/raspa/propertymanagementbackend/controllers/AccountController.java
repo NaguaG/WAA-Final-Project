@@ -97,20 +97,20 @@ public class AccountController {
     }
 
     @GetMapping("/account")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('OWNER') or hasRole('ADMIN')")
     public UserDTO getAccountDetails(@RequestHeader HttpHeaders headers){
         return userSecurityService.getCurrentUser().map(userMapper::convertToDtoUser)
         .orElseThrow(() -> new BadRequestAlertException("No Such User Exists"));
     }
 
     @PostMapping("/changePassword")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('OWNER') or hasRole('ADMIN')")
     public void changePassword(@RequestBody HashMap<String, String> payload){
         userSecurityService.changePassword(payload.get("oldPassword"), payload.get("newPassword"));
     }
 
     @PostMapping("/uploadProfileImage")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('OWNER') or hasRole('ADMIN')")
     public String uploadProfileImage(String imageUrl){
         return userSecurityService.updateProfileImage(imageUrl);
     }
@@ -135,7 +135,7 @@ public class AccountController {
 //    }
 
     @PutMapping("/account")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('OWNER') or hasRole('ADMIN')")
     public UserDTO updateAccountDetails(@Valid @RequestBody UserDTO payload) {
         UserDTO userDTO = userSecurityService.updateUserDetails(payload);
         return userDTO;

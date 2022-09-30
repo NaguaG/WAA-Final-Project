@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 public class CloudinaryConfig {
 
     Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "teachmandu",
-            "api_key", "899411832567111",
-            "api_secret", "McY8dYae9ZF2gJwJvVCSQnZL4MQ"));
+            "cloud_name", "dhuw5guix",
+            "api_key", "461987481738574",
+            "api_secret", "7yT0yGEEJw53p9Rb_2c_2MSuTYc"));
 
     public Cloudinary getCloudinary() {
         return cloudinary;

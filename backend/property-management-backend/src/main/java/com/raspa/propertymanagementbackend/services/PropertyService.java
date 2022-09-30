@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public interface PropertyService {
@@ -14,9 +15,9 @@ public interface PropertyService {
 
     PropertyDTO findById(Long id);
 
-    PropertyDTO save(PropertyDTO propertyDTO);
+    PropertyDTO save(PropertyDTO propertyDTO, MultipartFile image) throws Exception;
 
-    PropertyDTO update(Long id, PropertyDTO property);
+    PropertyDTO update(Long id, PropertyDTO property, MultipartFile image) throws Exception;
 
     PropertyDTO delete(Long id);
 }
