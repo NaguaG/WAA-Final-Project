@@ -7,10 +7,10 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Carousel from "react-material-ui-carousel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 
 const PropertyCard = (props) => {
@@ -31,8 +31,8 @@ const PropertyCard = (props) => {
     <Card sx={{ maxWidth: 345, width: 345, height: 410 }}>
       <CardHeader
         action={
-          <IconButton aria-label="`set`tings">
-            <MoreVertIcon />
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
           </IconButton>
         }
         title={title}
@@ -61,9 +61,21 @@ const PropertyCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "space-between" }}>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "10px",
+          }}>
+          <AttachMoneyIcon />
+          <Typography
+            sx={{ marginLeft: "5px" }}
+            variant="body2"
+            color="text.secondary">
+            {" "}
+            {price}
+          </Typography>
+        </div>
         <Link to={href}>Details</Link>
       </CardActions>
     </Card>

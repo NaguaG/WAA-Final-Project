@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Carousel from "react-material-ui-carousel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Box,
   Button,
@@ -66,8 +66,8 @@ const PropertyDetails = (props) => {
             title={title}
             subheader={propertyType}
             action={
-              <IconButton aria-label="`set`tings">
-                <MoreVertIcon />
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
               </IconButton>
             }></CardHeader>
 
