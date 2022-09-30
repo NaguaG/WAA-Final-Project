@@ -71,6 +71,26 @@ public class AccountController {
         return ResponseEntity.ok().body(userSecurityService.getUsers(queryParams));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> findUser(@PathVariable Long id){
+        return ResponseEntity.ok().body(userSecurityService.getUser(id));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{id}/edit")
+    public ResponseEntity<UserDTO> edit(@PathVariable Long id, @RequestBody UserDTO userDTO){
+        if(id != userDTO.getId()) throw new BadRequestAlertException("Invalid ID!");
+        return ResponseEntity.ok().body(userSecurityService.editUsers(userDTO));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{id}/passwordReset")
+    public ResponseEntity<UserDTO> passwordReset(@PathVariable Long id, @RequestBody UserDTO userDTO){
+        if(id != userDTO.getId()) throw new BadRequestAlertException("Invalid ID!");
+        return ResponseEntity.ok().body(userSecurityService.resetPassword(userDTO));
+    }
+
     @GetMapping("/register/validPhoneNumber/{phoneNumber}")
     public ResponseEntity<Boolean> checkEmailUsed(@PathVariable Long phoneNumber){
         return ResponseEntity.ok().body(userSecurityService.checkPhoneNumberUsed(phoneNumber));
