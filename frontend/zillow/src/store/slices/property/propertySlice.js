@@ -65,8 +65,8 @@ const param={
     })
 
 }}
-const propertySlice=createSlice(param);
+const propertyDashboardSlice=createSlice(param);
 
-export default propertySlice.reducer;
+export default propertyDashboardSlice.reducer;
 
 
