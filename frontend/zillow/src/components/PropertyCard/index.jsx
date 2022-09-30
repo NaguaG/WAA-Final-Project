@@ -11,9 +11,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Carousel from "react-material-ui-carousel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Link } from "react-router-dom";
 
 const PropertyCard = (props) => {
-  const { property } = props;
+  const { property, href } = props;
   const {
     id,
     title,
@@ -22,6 +23,7 @@ const PropertyCard = (props) => {
     price,
     images,
     propertyType,
+
     location: { name },
   } = property;
 
@@ -58,10 +60,11 @@ const PropertyCard = (props) => {
           {description}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions sx={{ justifyContent: "space-between" }}>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
+        <Link to={href}>Details</Link>
       </CardActions>
     </Card>
   );

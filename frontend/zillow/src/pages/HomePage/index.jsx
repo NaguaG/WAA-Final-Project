@@ -124,9 +124,7 @@ const HomePage = (props) => {
             const href = `/property-details/${item.id}`;
             return (
               <Grid item>
-                <Link to={href}>
-                  <PropertyCard property={item} />
-                </Link>
+                <PropertyCard property={item} href={href} />
               </Grid>
             );
           })}

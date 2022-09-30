@@ -8,10 +8,10 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-material-ui-carousel";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Box,
   Button,
@@ -45,7 +45,7 @@ const PropertyDetails = (props) => {
     numberOfRooms,
   } = propertyDetails;
 
-  const buttonText = isForRent ? "Rent" : "Sell";
+  const buttonText = isForRent ? "Rent" : "Buy";
 
   return (
     <Container component="main">
@@ -62,7 +62,14 @@ const PropertyDetails = (props) => {
             startIcon={<ArrowBackIcon />}>
             Go Back
           </Button>
-          <CardHeader title={title} subheader={propertyType}></CardHeader>
+          <CardHeader
+            title={title}
+            subheader={propertyType}
+            action={
+              <IconButton aria-label="`set`tings">
+                <MoreVertIcon />
+              </IconButton>
+            }></CardHeader>
 
           <Carousel
             NextIcon={<ArrowForwardIosIcon />}
@@ -134,7 +141,9 @@ const PropertyDetails = (props) => {
             </Box>
           </CardContent>
           <CardActions sx={{ justifyContent: "center" }}>
-            <Button variant={"contained"}>{buttonText}</Button>
+            <Button sx={{ width: "200px" }} variant={"contained"}>
+              {buttonText}
+            </Button>
           </CardActions>
         </Card>
       </Grid>
