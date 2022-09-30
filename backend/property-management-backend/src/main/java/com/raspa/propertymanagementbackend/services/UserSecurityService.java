@@ -31,6 +31,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserSecurityService implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserSecurityService.class);
@@ -186,7 +187,6 @@ public class UserSecurityService implements UserDetailsService {
 
     public UserDTO getUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new BadRequestAlertException("No such User!"));
-        user.setPassword(null);
 
         UserDTO userDTO = userMapper.convertToDto(user);
         return userDTO;
@@ -218,5 +218,20 @@ public class UserSecurityService implements UserDetailsService {
         if(queryParams.containsKey("username")) return userRepository.findAllByUsername(queryParams.getFirst("username"))
                 .stream().map(userMapper::convertToDtoUser).collect(Collectors.toList());
         return userRepository.findAll().stream().map(userMapper::convertToDtoUser).collect(Collectors.toList());
+    }
+
+    public UserDTO editUsers(UserDTO userDTO) {
+        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new BadRequestAlertException("Invalid ID!"));
+        user.setEnabled(userDTO.isEnabled());
+        user.setFullName(userDTO.getFullName());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user = userRepository.save(user);
+        return userMapper.convertToDto(user);
+    }
+
+    public UserDTO resetPassword(UserDTO userDTO) {
+        User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new BadRequestAlertException("Invalid ID!"));
+        user.setPassword(userDTO.getPassword());
+        return userMapper.convertToDto(user);
     }
 }

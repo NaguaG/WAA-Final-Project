@@ -20,16 +20,18 @@ import {del, get, put} from "../../api";
 import DeleteAlert from "../../components/DeleteAlert/DeleteAlert";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUsers} from "../../store/slices/users/usersSlice";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Users() {
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const seletor = useSelector((state) => state.users);
   const [username, setUsername] = useState('');
   const [data, setData] = useState([]);
   const [deletModelShow, setDeletModelShow] = useState(false);
-  const [id, setId] = useState(null);
+  const [deleteData, setDeleteData] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -49,25 +51,24 @@ export default function Users() {
     fetchData();
   }
 
-  function onBtnClicked(type, id){
+  function onBtnClicked(type, item){
     if(type == 'view'){
-      alert('view'+id)
-
+      navigate(`/dashboard/users/${item.id}/view`)
     } else if( type == 'edit'){
-      alert('edit'+id)
-
+      navigate(`/dashboard/users/${item.id}/edit`)
     } else {
       // disable
       setDeletModelShow(!deletModelShow)
+      setDeleteData(item);
     }
   }
 
-  function onConfirmClicked(item){
-    put(`/api/users/${id}/disable`);
-    setDeletModelShow(!deletModelShow)
-    console.log('====================================');
-    console.log(item);
-    console.log('====================================');
+  const onConfirmClicked = async() => {
+    let payload = {...deleteData};
+    payload.enabled = false;
+    let res = await put(`/api/users/${deleteData.id}/edit`, payload);
+    setDeletModelShow(false);
+    fetchData()
   }
 
   return (
@@ -101,6 +102,7 @@ export default function Users() {
                 <TableCell align="right">Email</TableCell>
                 <TableCell align="right">Phone Number</TableCell>
                 <TableCell align="right">Role</TableCell>
+                <TableCell align="right">Enabled</TableCell>
                 <TableCell align="right">Action</TableCell>
               </TableRow>
             </TableHead>
@@ -118,11 +120,13 @@ export default function Users() {
                   <TableCell align="right">{row.email}</TableCell>
                   <TableCell align="right">{row.phoneNumber}</TableCell>
                   <TableCell align="right">{row.roles[0].role_name}</TableCell>
+                  <TableCell align="right">{row.enabled ? "Enabled" : "Disabled"}</TableCell>
                   <TableCell align="right">
                     <ButtonGroup variant="contained">
-                      <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',1)}}>View</Button>
-                      <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',1)}}>Edit</Button>
-                      <Button size="small" color="error" onClick={()=> {onBtnClicked('disable',1)}}>Disable</Button>
+                      <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',row)}}>View</Button>
+                      <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',row)}}>Edit</Button>
+                      <Button size="small" color={row.enabled ? "error" : "secondary"} onClick={()=> {onBtnClicked('disable',row)}}>{row.enabled ? "Disable" : "Enable"}</Button>
+                      <Button size="small" color="warning" onClick={()=> {navigate(`/dashboard/users/${row.id}/passwordReset`)}}>Reset Password</Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
@@ -130,7 +134,7 @@ export default function Users() {
             </TableBody>
           </Table>
         </TableContainer>
-        { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={() => onConfirmClicked(id)}  />}
+        { deletModelShow && <DeleteAlert item={deleteData}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={() => onConfirmClicked()}  />}
       </Container>
 
     </>
