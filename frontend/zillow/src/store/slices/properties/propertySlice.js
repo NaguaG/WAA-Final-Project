@@ -5,18 +5,20 @@ export const loadProperties = createAsyncThunk(
   "properties/load",
   async (params, rejectWithValue) => {
     try {
-      const baseUrl = "/api/properties";
+      let baseUrl = "/api/properties";
       if (params.location) {
-        baseUrl += `?location=${params.location}&`;
+        baseUrl += `?location=${params.location}`;
       }
       if (params.propertyType) {
-        baseUrl += `propertyType=${params.propertyType}`;
+        baseUrl += `${params.location ? "&" : "?"}propertyType=${
+          params.propertyType
+        }`;
       }
       const response = await get(baseUrl);
       console.log("response: ", response);
       return response.data;
     } catch (err) {
-      rejectWithValue(errr.response);
+      rejectWithValue(err.response);
     }
   }
 );

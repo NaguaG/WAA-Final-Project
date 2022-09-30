@@ -18,11 +18,6 @@ import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
 import { isLoggedIn } from "../../store/slices/user/selectors";
 import { useSelector } from "react-redux";
 
-const pages = [
-  { label: "Buy", to: "/buy" },
-  { label: "Rent", to: "/rent" },
-  { label: "Sell", to: "/sell" },
-];
 const settings = [
   { label: "Reset Password", to: "/reset-password" },
   { label: "Dashboard", to: "/dashboard" },
@@ -61,25 +56,19 @@ const Header = () => {
     <AppBar sx={{ backgroundColor: "black" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <MenuIcon
-            sx={{ cursor: "pointer" }}
-            onClick={handleOpenDrawerMenu}
-            size="large"
-          />
+          {isSignedIn && (
+            <MenuIcon
+              sx={{ cursor: "pointer" }}
+              onClick={handleOpenDrawerMenu}
+              size="large"
+            />
+          )}
+
           <Link to="/">
             <img src="/logo.jpeg" width={100} height={50} />
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit">
-              <ExpandMoreIcon />
-            </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -96,25 +85,10 @@ const Header = () => {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
-              }}>
-              {pages.map((page) => (
-                <MenuItem key={page.to} onClick={() => navigate(page.to)}>
-                  <Typography textAlign="center">{page.label}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              }}></Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.to}
-                onClick={() => navigate(page.to)}
-                sx={{ my: 2, color: "white", display: "block" }}>
-                {page.label}
-              </Button>
-            ))}
-          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
           {!isSignedIn && (
             <Button
