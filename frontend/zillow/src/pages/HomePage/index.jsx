@@ -74,11 +74,13 @@ const HomePage = (props) => {
                 label="Location"
                 onChange={handleChange}>
                 <MenuItem value={"0"}>All</MenuItem>
-                <MenuItem value={"1"}>Fairfield</MenuItem>
-                <MenuItem value={"2"}>Black Hawk County</MenuItem>
-                <MenuItem value={"3"}>Johnson County</MenuItem>
-                <MenuItem value={"3"}>Linn County</MenuItem>
-                <MenuItem value={"4"}>Polk County</MenuItem>
+                <MenuItem value={"Fairfield"}>Fairfield</MenuItem>
+                <MenuItem value={"Black Hawk County"}>
+                  Black Hawk County
+                </MenuItem>
+                <MenuItem value={"Johnson County"}>Johnson County</MenuItem>
+                <MenuItem value={"Linn County"}>Linn County</MenuItem>
+                <MenuItem value={"Polk County"}>Polk County</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -92,34 +94,11 @@ const HomePage = (props) => {
                 value={propertyType}
                 label="Property Type"
                 onChange={handleChange}>
-                <MenuItem value="single family home">
-                  Single-Family Home
-                </MenuItem>
                 <MenuItem value={"0"}>All</MenuItem>
-                <MenuItem value="townhome">Townhome</MenuItem>
-                <MenuItem value="bungalow">Bungalow</MenuItem>
-                <MenuItem value="ranch">Ranch</MenuItem>
-                <MenuItem value="condos">Condos</MenuItem>
-                <MenuItem value="victorian">Victorian</MenuItem>
-                <MenuItem value="colonial">Colonial</MenuItem>
-                <MenuItem value="container home">Container Home</MenuItem>
-                <MenuItem value="split level">Split Level</MenuItem>
-                <MenuItem value="houseboat">Houseboat</MenuItem>
-                <MenuItem value="mediterranean">Mediterranean</MenuItem>
-                <MenuItem value="tudor">Tudor</MenuItem>
-                <MenuItem value="craftsman">Craftsman</MenuItem>
-                <MenuItem value="tiny house">Tiny House</MenuItem>
-                <MenuItem value="co op">Co-op</MenuItem>
-                <MenuItem value="cabin">Cabin</MenuItem>
-                <MenuItem value="apartment">Apartment</MenuItem>
-                <MenuItem value="manufactured home">Manufactured Home</MenuItem>
-                <MenuItem value="mobile home">Mobile Home</MenuItem>
-                <MenuItem value="mid century modern style">
-                  Mid-Century Modern Style
-                </MenuItem>
-                <MenuItem value="cape cod">Cape Cod</MenuItem>
-                <MenuItem value="farmhouse">Farmhouse</MenuItem>
-                <MenuItem value="mansion">Mansion</MenuItem>
+                <MenuItem value="Apartment">Apartment</MenuItem>
+                <MenuItem value="Res">Res</MenuItem>
+                <MenuItem value="condo">Condo</MenuItem>
+                <MenuItem value="condoNew">Condo New</MenuItem>
               </Select>
             </FormControl>
           </Grid>
