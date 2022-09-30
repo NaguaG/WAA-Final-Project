@@ -23,5 +23,6 @@ public class UserDTO {
     private String imageUrl;
     private boolean enabled;
     private List<PropertyDTO> properties;
+    private List<FavListDTO> favListDTOS;
     private Set<Role> roles;
 }

@@ -76,6 +76,10 @@ public class User extends AbstractAuditingEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Property> properties;
 
+    @JoinColumn(name = "user_id")
+    @OneToMany
+    private List<FavList> favLists;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_roles", joinColumns = {
             @JoinColumn(name = "user_id")}, inverseJoinColumns = {

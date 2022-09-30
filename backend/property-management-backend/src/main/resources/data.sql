@@ -35,3 +35,10 @@ values ('https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.co
        ('https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187__480.jpg',5);
 
 
+-- FAV LIST
+INSERT INTO fav_list (name, user_id)
+VALUES  ('First List', '1'), ('Second List', '2');
+
+-- FAV ITEM
+INSERT INTO fav_item (property_id, fav_id)
+VALUES  ('1','1'), ('2','2'),('1','2'),('2','1');
