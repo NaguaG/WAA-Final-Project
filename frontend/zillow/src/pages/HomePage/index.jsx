@@ -20,8 +20,8 @@ import { Link } from "react-router-dom";
 const HomePage = (props) => {
   const [location, setLocation] = useState("");
   const [propertyType, setPropertyType] = useState("");
-  const dispatch = useDispatch();
   const properties = useSelector((state) => selectProperties(state));
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     if (e.target.name === "propertyType") {
@@ -29,6 +29,20 @@ const HomePage = (props) => {
     } else if (e.target.name === "location") {
       setLocation(e.target.value);
     }
+  };
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    let locationValue = location;
+    let propertyValue = propertyType;
+    if (location === "0") {
+      locationValue = null;
+    } else if (propertyType === "0") {
+      propertyValue = null;
+    }
+    dispatch(
+      loadProperties({ location: locationValue, propertyType: propertyValue })
+    );
   };
 
   useEffect(() => {
@@ -58,6 +72,7 @@ const HomePage = (props) => {
                 value={location}
                 label="Location"
                 onChange={handleChange}>
+                <MenuItem value={"0"}>All</MenuItem>
                 <MenuItem value={"1"}>Fairfield</MenuItem>
                 <MenuItem value={"2"}>Black Hawk County</MenuItem>
                 <MenuItem value={"3"}>Johnson County</MenuItem>
@@ -79,6 +94,7 @@ const HomePage = (props) => {
                 <MenuItem value="single family home">
                   Single-Family Home
                 </MenuItem>
+                <MenuItem value={"0"}>All</MenuItem>
                 <MenuItem value="townhome">Townhome</MenuItem>
                 <MenuItem value="bungalow">Bungalow</MenuItem>
                 <MenuItem value="ranch">Ranch</MenuItem>
@@ -108,7 +124,10 @@ const HomePage = (props) => {
           </Grid>
           <Grid item>
             <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
-              <Button variant="contained" endIcon={<SearchIcon />}>
+              <Button
+                onClick={onSearch}
+                variant="contained"
+                endIcon={<SearchIcon />}>
                 Search
               </Button>
             </FormControl>
