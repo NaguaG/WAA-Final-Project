@@ -22,7 +22,7 @@ const initialState={
 //==================
 const param={
     name:'property',
-    initialState:initialState,
+    initialState,
     reducers:{
         loadProperty:(state)=>{
         }

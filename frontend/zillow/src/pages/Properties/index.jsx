@@ -20,6 +20,7 @@ export default function Properties() {
   const dispatch = useDispatch();
   const fetchData = () => {
     dispatch(fetchProperties()).then((res) => {
+      console.log('res',res)
       setData(res.payload);
     });
   };
@@ -37,8 +38,18 @@ export default function Properties() {
     createData("Gingerbread", 356, 16.0, 49, 3.9),
   ];
 
-  const [value, setValue] = useState("");
-  const [data, setData] = useState(rows);
+ const [valuePrice, setValueByPrice] = useState(0);
+ const [valueNumberOfRooms, setvalueNumberOfRoomsalueNumberOfRooms] = useState("");
+  const [valuePropertyType, setValuePropertyType] = useState("");
+   const [valueHomeType, setValueHomeType] = useState("");
+  const [valueLocation, setValueLocation] = useState("");
+  
+  const [values, setValues] = useState({
+    valuePrice : '',
+    valueNumberOfRooms : '',
+  });
+  
+  const [data, setData] = useState([]);
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -51,7 +62,9 @@ export default function Properties() {
   }
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setValues({
+      ...values, [event.target.name]: event.target.value
+    })
   };
 
  
@@ -90,40 +103,45 @@ export default function Properties() {
             <TextField
               id="outlined-multiline-flexible"
               label="By Price"
-              value={value}
+              value={values.valuePrice}
               onChange={handleChange}
+              name='valuePrice'
             />
           </Grid>
           <Grid item>
             <TextField
               id="outlined-multiline-flexible"
               label="Property Type"
-              value={value}
+              value={values.valuePropertyType}
               onChange={handleChange}
+              name='valuePropertyType'
             />
           </Grid>
           <Grid item>
             <TextField
               id="outlined-multiline-flexible"
               label="Number of Rooms"
-              value={value}
+              value={values.valueNumberOfRooms}
               onChange={handleChange}
+              name='valueNumberOfRooms'
             />
           </Grid>
           <Grid item>
             <TextField
               id="outlined-multiline-flexible"
               label="Home Type"
-              value={value}
+              value={values.valueHomeType}
               onChange={handleChange}
+              name='valueHomeType'
             />
           </Grid>
           <Grid item>
             <TextField
               id="outlined-multiline-flexible"
               label="Location"
-              value={value}
+              value={values.valueLocation}
               onChange={handleChange}
+              name='valueLocation'
             />
           </Grid>
           <Grid item>
