@@ -32,7 +32,7 @@ const PropertyCard = (props) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, width: 345, height: 410 }}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
