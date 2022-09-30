@@ -13,6 +13,7 @@ export default configureStore({
     favLists: favSlice.reducer,
     properties: propertyReducer,
     properties:propertyReducer
+    properties:propertyReducer,
     users: usersReducer
   },
 });
