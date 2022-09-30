@@ -25,17 +25,11 @@ const PropertyCard = (props) => {
     location: { name },
   } = property;
 
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   return (
     <Card sx={{ maxWidth: 345, width: 345, height: 410 }}>
       <CardHeader
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="`set`tings">
             <MoreVertIcon />
           </IconButton>
         }
