@@ -15,6 +15,7 @@ import PropertyCard from "../../components/PropertyCard";
 import { useDispatch, useSelector } from "react-redux";
 import { loadProperties } from "../../store/slices/properties/propertySlice";
 import { selectProperties } from "../../store/slices/properties/selectors";
+import { Link } from "react-router-dom";
 
 const HomePage = (props) => {
   const [location, setLocation] = useState("");
@@ -120,9 +121,12 @@ const HomePage = (props) => {
           justifyContent={"center"}
           sx={{ mt: 3 }}>
           {properties.map((item) => {
+            const href = `/property-details/${item.id}`;
             return (
               <Grid item>
-                <PropertyCard property={item} />
+                <Link to={href}>
+                  <PropertyCard property={item} />
+                </Link>
               </Grid>
             );
           })}
