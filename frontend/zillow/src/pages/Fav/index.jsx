@@ -1,24 +1,34 @@
 import { Button, ButtonGroup, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DeleteAlert from '../../components/DeleteAlert/DeleteAlert';
+import { fetchFavList, setAddEditForm } from '../../store/slices/fav/favSlice';
 import CreateFav from './CreateFav';
+import FavListView from './view/FavListView';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function FavList() {
   const [id, setId] = useState(null);
-  const [favId, setfavId] = useState(null);
+  const [fav, setFav] = useState(null);
+  const [favList, setFavList] = useState(null);
   const navigate = useNavigate();
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
+  const dispatch = useDispatch();
 
-  const [data, setData] = useState(rows);
+  const favListData = useSelector((state) => state.favLists );
+  
+  // const [data, setData] = useState(favListData.favList);
   const [deletModelShow, setDeletModelShow] = useState(false);
   const [createModelShow, setCreateModelShow] = useState(false);
+  const [viewModelShow, setViewModelShow] = useState(false);
+  
+
+  useEffect(() => {
+    dispatch(fetchFavList());
+  },[])
+  
+
+
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -27,12 +37,15 @@ export default function FavList() {
 
   function onBtnClicked(type, id){
     if(type == 'view'){
-      alert('view'+id)
+      //view
+      setFavList(id.favItems);
+      setViewModelShow(!viewModelShow)
 
     } else if( type == 'edit') {
-      setfavId(id);
+      //edit
+      setFav(id);
+      dispatch(setAddEditForm(false));
       setCreateModelShow(!createModelShow)
-
     } else {
       // delete
       setId(id);
@@ -40,15 +53,28 @@ export default function FavList() {
     }
   }
 
+  // when use click new btn
+  function setNewFavClicked(){
+    dispatch(setAddEditForm(true));
+    setCreateModelShow(!createModelShow)
+  }
+
+  // for delete model confirm btn
   function onConfirmClicked(item){
     setDeletModelShow(!deletModelShow)
     console.log('====================================');
     console.log(item);
     console.log('====================================');
   }
+
+  // view model close
+  function onCloseClicked(item){
+    setViewModelShow(!viewModelShow)
+  }
   
+  // create model
   function onCreateConfirmClicked(item){
-    setDeletModelShow(!deletModelShow)
+    setCreateModelShow(!createModelShow)
     console.log('====================================');
     console.log(item);
     console.log('====================================');
@@ -64,7 +90,7 @@ export default function FavList() {
             <h1> FavList </h1>
           </Grid>
           <Grid item>
-            <Button variant="contained" color='success' onClick={() => setCreateModelShow(!createModelShow) }>+ New</Button>
+            <Button variant="contained" color='success' onClick={() => setNewFavClicked() } startIcon={<AddCircleIcon />} >Add New</Button>
           </Grid>
         </Grid>
         <TableContainer component={Paper}>
@@ -77,20 +103,20 @@ export default function FavList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row) => (
+              {favListData.favList.map((row, index) => (
                 <TableRow
                   key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {index+1}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
+                  <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">
                     <ButtonGroup variant="contained">
-                      <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',1)}}>View</Button>
-                      <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',1)}}>Edit</Button>
-                      <Button size="small" color="error" onClick={()=> {onBtnClicked('delete',1)}}>Delete</Button>
+                      <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',row)}}>View</Button>
+                      <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',row)}}>Edit</Button>
+                      <Button size="small" color="error" onClick={()=> {onBtnClicked('delete',row.id)}}>Delete</Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
@@ -98,8 +124,9 @@ export default function FavList() {
             </TableBody>
           </Table>
         </TableContainer>
-        { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={() => onConfirmClicked(id)}  />}
-        { createModelShow && <CreateFav item={favId}  open={createModelShow} setOpen={setCreateModelShow} onConfirmClicked={() => onCreateConfirmClicked(id)}  />}
+        { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={onConfirmClicked}  />}
+        { createModelShow && <CreateFav item={fav}  open={createModelShow} setOpen={setCreateModelShow} onCreateConfirmClicked={onCreateConfirmClicked}  />}
+        { viewModelShow && <FavListView item={favList}  open={viewModelShow} setOpen={setViewModelShow} onCloseClicked={onCloseClicked}  />}
       </Container>
     </>
   )
