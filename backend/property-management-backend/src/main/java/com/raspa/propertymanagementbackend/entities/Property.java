@@ -3,7 +3,6 @@ package com.raspa.propertymanagementbackend.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,21 +13,23 @@ import java.util.List;
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;//
+    private Long id;
     private String title;
-    private Boolean isForSell;//
-    private Boolean isForRent;//
-    private Integer numberOfRooms;//
-    private Double price;//
-    private String propertyType;//
-    private String homeType;//
-    private String description;//
+    private Boolean isForSell;
+
+    private Boolean isForRent;
+    private Integer numberOfRooms;
+    private Double price;
+    private String propertyType;
+    private String homeType;
+    private String description;
+
     @ManyToOne
-    private Location location;//
+    private Location location;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
-    private List<Image> images;//
+    private List<Image> images;
 
     @ManyToOne
-    private User user;//
+    private User user;
 }
