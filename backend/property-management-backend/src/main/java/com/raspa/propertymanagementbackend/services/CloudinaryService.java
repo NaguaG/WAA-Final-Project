@@ -60,7 +60,7 @@ public class CloudinaryService {
 
         Map uploadResult = cloudinary.uploader().upload(file, params);
         file.delete();
-        return uploadResult.get("public_id").toString();
+        return "https://res.cloudinary.com/dhuw5guix/image/upload/v1664574354/" + uploadResult.get("public_id").toString();
     }
 
     public void remove(String filePath) throws Exception{
