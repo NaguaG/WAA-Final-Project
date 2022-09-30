@@ -37,7 +37,8 @@ const HomePage = (props) => {
     let propertyValue = propertyType;
     if (location === "0") {
       locationValue = null;
-    } else if (propertyType === "0") {
+    }
+    if (propertyType === "0") {
       propertyValue = null;
     }
     dispatch(

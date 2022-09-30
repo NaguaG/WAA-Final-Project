@@ -10,7 +10,9 @@ export const loadProperties = createAsyncThunk(
         baseUrl += `?location=${params.location}`;
       }
       if (params.propertyType) {
-        baseUrl += `&propertyType=${params.propertyType}`;
+        baseUrl += `${params.location ? "&" : "?"}propertyType=${
+          params.propertyType
+        }`;
       }
       const response = await get(baseUrl);
       console.log("response: ", response);
