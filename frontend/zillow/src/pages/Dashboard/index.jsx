@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PropertyBarChart from "../../components/Charts/PropertyBarChart";
 import PropertyPieChart from "../../components/Charts/PropertyPieChart";
 import { loadPropertyStats } from "../../store/slices/properties/propertySlice";
+import { selectPropertyStats } from "../../store/slices/properties/selectors";
 import { isLoggedIn, selectAuth } from "../../store/slices/user/selectors";
 import { get } from "../../api";
 
@@ -47,6 +48,8 @@ export default function Dashboard() {
 
   const isSignedIn = useSelector((state) => isLoggedIn(state));
   const userRole = useSelector((state) => selectAuth(state));
+  const { names, counts } = useSelector((state) => selectPropertyStats(state));
+  const pieChartData = useSelector((state) => state.properties.propertyStats);
 
   const AUTH_ROLES = ["ROLE_ADMIN"];
   const isAuthorized = isSignedIn && AUTH_ROLES.includes(userRole);
@@ -193,72 +196,18 @@ export default function Dashboard() {
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
-        <Box>
-          <PropertyBarChart
-            title="Properties Rented By Location"
-            xAxisData={[
-              "shirt",
-              "cardigan",
-              "chiffon",
-              "pants",
-              "heels",
-              "socks",
-            ]}
-            name={"Properties Bar Chart"}
-            type="bar"
-            data={[5, 20, 36, 10, 10, 20]}
-          />
-          <PropertyPieChart
-            title="Properties Rented By Location"
-            data={[
-              {
-                value: 335,
-                name: "Direct Visit",
-              },
-              {
-                value: 234,
-                name: "Union Ad",
-              },
-              {
-                value: 1548,
-                name: "Search Engine",
-              },
-            ]}
-          />
-        </Box>
-        {isAuthorized && (
+        {isAuthorized && names.length > 0 && counts.length > 0 && pieChartData && (
           <Box>
             <PropertyBarChart
               title="Properties Rented By Location"
-              xAxisData={[
-                "shirt",
-                "cardigan",
-                "chiffon",
-                "pants",
-                "heels",
-                "socks",
-              ]}
+              xAxisData={names}
               name={"Properties Bar Chart"}
               type="bar"
-              data={[5, 20, 36, 10, 10, 20]}
+              data={counts}
             />
             <PropertyPieChart
               title="Properties Rented By Location"
-              data={[
-                {
-                  value: 335,
-                  name: "Direct Visit",
-                },
-                {
-                  value: 234,
-                  name: "Union Ad",
-                },
-                {
-                  value: 1548,
-                  name: "Search Engine",
-                },
-              ]}
+              data={pieChartData}
             />
           </Box>
         )}

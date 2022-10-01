@@ -9,4 +9,14 @@ const selectPropertyDetails = (state, id) => {
   return property.length ? property[0] : {};
 };
 
-export { selectProperties, selectPropertyDetails };
+const selectPropertyStats = (state) => {
+  const names = state.properties.propertyStats.map((stats) => stats.name);
+  const counts = state.properties.propertyStats.map((stats) => stats.value);
+
+  return {
+    names: names.length > 0 ? names : [],
+    counts: counts.length > 0 ? counts : [],
+  };
+};
+
+export { selectProperties, selectPropertyDetails, selectPropertyStats };
