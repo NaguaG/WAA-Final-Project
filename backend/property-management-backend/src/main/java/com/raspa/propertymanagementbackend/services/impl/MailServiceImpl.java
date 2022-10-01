@@ -15,4 +15,12 @@ public class MailServiceImpl {
         this.mailSender.send(simpleMailMessage);
     }
 
+    public void sendMessage(String to, String propertyName) {
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom("abc2017x@gmail.com");
+        simpleMailMessage.setTo(to);
+        simpleMailMessage.setSubject("Application for your Property.");
+        simpleMailMessage.setText("Your property : " + propertyName + "has an application. Please login to the system to find the details.");
+        sendMessage(simpleMailMessage);
+    }
 }
