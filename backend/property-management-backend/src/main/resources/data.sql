@@ -17,12 +17,12 @@ INSERT INTO location (name)
 VALUES  ('Fairfield'), ('Black Hawk County'),('Johnson County'),('Linn County'),('Polk County');
 
 --PROPERTY
-INSERT INTO property (description,home_type,is_for_rent,is_for_sell,number_of_rooms,price,property_type,location_id,user_id,title)
-values ('This gorgeous and nearly perfect house will stun you with its modern and dazzling interior finishes.','dont know',true,false,12,2000.00,'Apartment',1,2,'New home 1'),
-       ('will stun you with its modern and dazzling interior finishes.',' dont know',true,false,12,2500.00,'Res',2,2,'New home 2'),
-       ('with its modern and dazzling interior finishes.','dont know',true,false,12,1500.00,'condo',3,2,'New home 3'),
-        (' stun you with its modern and dazzling interior finishes.','home type dont know',true,false,12,2300.00,'condoNew',4,4,'New home 4'),
-        ('dazzling interior finishes.','home type dont know',true,false,12,2200.00,'condo',5,4,'New home 5');
+INSERT INTO property (description,home_type,is_for_rent,is_for_sell,number_of_rooms,price,property_type,location_id,user_id,title,deleted)
+values ('This gorgeous and nearly perfect house will stun you with its modern and dazzling interior finishes.','dont know',true,false,12,2000.00,'Apartment',1,2,'New home 1',false),
+       ('will stun you with its modern and dazzling interior finishes.',' dont know',true,false,12,2500.00,'Res',2,2,'New home 2',false),
+       ('with its modern and dazzling interior finishes.','dont know',true,false,12,1500.00,'condo',3,2,'New home 3',false),
+        (' stun you with its modern and dazzling interior finishes.','home type dont know',true,false,12,2300.00,'condoNew',2,4,'New home 4',false),
+        ('dazzling interior finishes.','home type dont know',true,false,12,2200.00,'condo',2,4,'New home 5',false);
 
 --IMAGE
 INSERT INTO image (url,property_id)
@@ -45,5 +45,9 @@ INSERT INTO fav_item (property_id, fav_id)
 VALUES  ('1','1'), ('2','2'),('1','2'),('2','1');
 
 -- APPLICATION
-INSERT INTO application (is_for_sell, is_for_rent, property_id, user_id)
-values (true, false, 1, 2), (true, false, 2, 4), (true, false, 3, 2),(true, false, 4, 4),(true, false, 5, 2);
+INSERT INTO application (is_for_sell, is_for_rent, property_id, user_id, submission_date, deleted)
+values (true, false, 1, 2, '2022-10-01', false),
+       (true, false, 2, 4, '2022-09-30', false),
+       (true, false, 3, 2, '2022-09-30', false),
+       (true, false, 4, 4, '2022-09-30', false),
+       (true, false, 5, 2, '2022-09-29', false);

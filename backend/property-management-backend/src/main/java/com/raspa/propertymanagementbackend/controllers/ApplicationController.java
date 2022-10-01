@@ -32,7 +32,6 @@ public class ApplicationController {
         return applicationService.save(applicationDTO);
 
     }
-
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @PutMapping("/{id}")
     public ApplicationDTO update(@PathVariable Long id, @RequestBody ApplicationDTO payload){
