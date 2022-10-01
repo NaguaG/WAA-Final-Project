@@ -13,10 +13,14 @@ import {
   TextField,
 } from "@mui/material";
 import Container from "@mui/material/Container";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropertyBarChart from "../../components/Charts/PropertyBarChart";
 import PropertyPieChart from "../../components/Charts/PropertyPieChart";
-import {get} from "../../api";
+import { loadPropertyStats } from "../../store/slices/properties/propertySlice";
+import { selectPropertyStats } from "../../store/slices/properties/selectors";
+import { isLoggedIn, selectAuth } from "../../store/slices/user/selectors";
+import { get } from "../../api";
 
 export default function Dashboard() {
   const rows = [
@@ -33,11 +37,27 @@ export default function Dashboard() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    get("/api/applications").then(res => {
+    get("/api/applications").then((res) => {
       console.log(res.data.content);
-      setApplications(res.data.content)
+      setApplications(res.data.content);
     });
-    get("/api/users").then(res => setUsers(res.data));
+    get("/api/users").then((res) => setUsers(res.data));
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const isSignedIn = useSelector((state) => isLoggedIn(state));
+  const userRole = useSelector((state) => selectAuth(state));
+  const { names, counts } = useSelector((state) => selectPropertyStats(state));
+  const pieChartData = useSelector((state) => state.properties.propertyStats);
+
+  const AUTH_ROLES = ["ROLE_ADMIN"];
+  const isAuthorized = isSignedIn && AUTH_ROLES.includes(userRole);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      dispatch(loadPropertyStats());
+    }
   }, []);
 
   function createData(name, calories, fat, carbs, protein) {
@@ -129,16 +149,24 @@ export default function Dashboard() {
                   <TableCell component="th" scope="row">
                     {application.property.title}
                   </TableCell>
-                  <TableCell align="right">{application.user.username}</TableCell>
-                  <TableCell align="right">{application.isForRent ? "Yes" : "No"}</TableCell>
-                  <TableCell align="right">{application.isForSell ? "Yes" : "No"}</TableCell>
-                  <TableCell align="right">{application.submissionDate}</TableCell>
+                  <TableCell align="right">
+                    {application.user.username}
+                  </TableCell>
+                  <TableCell align="right">
+                    {application.isForRent ? "Yes" : "No"}
+                  </TableCell>
+                  <TableCell align="right">
+                    {application.isForSell ? "Yes" : "No"}
+                  </TableCell>
+                  <TableCell align="right">
+                    {application.submissionDate}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <br/>
+        <br />
         <h1>Recent Registered Users</h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -153,55 +181,36 @@ export default function Dashboard() {
             </TableHead>
             <TableBody>
               {users.map((user) => (
-                  <TableRow
-                      key={user.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {user.username}
-                    </TableCell>
-                    <TableCell align="right">{user.username}</TableCell>
-                    <TableCell align="right">{user.fullName}</TableCell>
-                    <TableCell align="right">{user.email}</TableCell>
-                    <TableCell align="right">{user.phoneNumber}</TableCell>
-                  </TableRow>
+                <TableRow
+                  key={user.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {user.username}
+                  </TableCell>
+                  <TableCell align="right">{user.username}</TableCell>
+                  <TableCell align="right">{user.fullName}</TableCell>
+                  <TableCell align="right">{user.email}</TableCell>
+                  <TableCell align="right">{user.phoneNumber}</TableCell>
+                </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <br/>
-        <Box>
-          <PropertyBarChart
-            title="Properties Rented By Location"
-            xAxisData={[
-              "shirt",
-              "cardigan",
-              "chiffon",
-              "pants",
-              "heels",
-              "socks",
-            ]}
-            name={"Properties Bar Chart"}
-            type="bar"
-            data={[5, 20, 36, 10, 10, 20]}
-          />
-          <PropertyPieChart
-            title="Properties Rented By Location"
-            data={[
-              {
-                value: 335,
-                name: "Direct Visit",
-              },
-              {
-                value: 234,
-                name: "Union Ad",
-              },
-              {
-                value: 1548,
-                name: "Search Engine",
-              },
-            ]}
-          />
-        </Box>
+        {isAuthorized && names.length > 0 && counts.length > 0 && pieChartData && (
+          <Box>
+            <PropertyBarChart
+              title="Properties Rented By Location"
+              xAxisData={names}
+              name={"Properties Bar Chart"}
+              type="bar"
+              data={counts}
+            />
+            <PropertyPieChart
+              title="Properties Rented By Location"
+              data={pieChartData}
+            />
+          </Box>
+        )}
       </Container>
     </>
   );
