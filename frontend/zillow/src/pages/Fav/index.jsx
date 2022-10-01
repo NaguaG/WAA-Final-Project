@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DeleteAlert from '../../components/DeleteAlert/DeleteAlert';
-import { fetchFavList, setAddEditForm } from '../../store/slices/fav/favSlice';
+import { deleteFavList, fetchFavList, setAddEditForm } from '../../store/slices/fav/favSlice';
 import CreateFav from './CreateFav';
 import FavListView from './view/FavListView';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -60,11 +60,12 @@ export default function FavList() {
   }
 
   // for delete model confirm btn
-  function onConfirmClicked(item){
-    setDeletModelShow(!deletModelShow)
-    console.log('====================================');
-    console.log(item);
-    console.log('====================================');
+  function onConfirmDeleteClicked(item){
+    dispatch(deleteFavList(item.id)).then((res) => {
+      dispatch(fetchFavList());
+      setDeletModelShow(!deletModelShow);
+    })
+    
   }
 
   // view model close
@@ -75,9 +76,6 @@ export default function FavList() {
   // create model
   function onCreateConfirmClicked(item){
     setCreateModelShow(!createModelShow)
-    console.log('====================================');
-    console.log(item);
-    console.log('====================================');
   }
 
   return (
@@ -116,7 +114,7 @@ export default function FavList() {
                     <ButtonGroup variant="contained">
                       <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',row)}}>View</Button>
                       <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',row)}}>Edit</Button>
-                      <Button size="small" color="error" onClick={()=> {onBtnClicked('delete',row.id)}}>Delete</Button>
+                      <Button size="small" color="error" onClick={()=> {onBtnClicked('delete',row)}}>Delete</Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
@@ -124,7 +122,7 @@ export default function FavList() {
             </TableBody>
           </Table>
         </TableContainer>
-        { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={onConfirmClicked}  />}
+        { deletModelShow && <DeleteAlert item={id}  open={deletModelShow} setOpen={setDeletModelShow} onConfirmClicked={onConfirmDeleteClicked}  />}
         { createModelShow && <CreateFav item={fav}  open={createModelShow} setOpen={setCreateModelShow} onCreateConfirmClicked={onCreateConfirmClicked}  />}
         { viewModelShow && <FavListView item={favList}  open={viewModelShow} setOpen={setViewModelShow} onCloseClicked={onCloseClicked}  />}
       </Container>

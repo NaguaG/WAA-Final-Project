@@ -28,7 +28,7 @@ export default function DeleteAlert(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>No</Button>
-          <Button onClick={() => handleDelete(props.id)} >Yes</Button>
+          <Button onClick={() => handleDelete(props.item)} >Yes</Button>
         </DialogActions>
       </Dialog>
   )

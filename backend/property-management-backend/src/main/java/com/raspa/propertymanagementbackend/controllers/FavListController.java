@@ -28,14 +28,14 @@ public class FavListController {
 
 
     //update
-    @PutMapping
+    @PutMapping("/{id}")
     public FavListDTO update(@PathVariable Long id, @RequestBody FavListDTO favListDTO){
         return favListService.update(id, favListDTO);
     }
 
 
     //delete
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public FavListDTO delete(@PathVariable Long id){
         return favListService.delete(id);
     }
