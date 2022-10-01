@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { get } from "../../../api";
+import { get, post } from "../../../api";
 
 export const loadProperties = createAsyncThunk(
   "properties/load",
@@ -15,6 +15,20 @@ export const loadProperties = createAsyncThunk(
         }`;
       }
       const response = await get(baseUrl);
+      console.log("response: ", response);
+      return response.data;
+    } catch (err) {
+      rejectWithValue(err.response);
+    }
+  }
+);
+
+export const applyForProperty = createAsyncThunk(
+  "properties/apply",
+  async (params, { rejectWithValue }) => {
+    try {
+      let baseUrl = "/api/applications";
+      const response = await post(baseUrl, params.payload);
       console.log("response: ", response);
       return response.data;
     } catch (err) {

@@ -15,7 +15,7 @@ function CustomSnackBar(props) {
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar
         open={open}
-        autoHideDuration={10000}
+        autoHideDuration={3000}
         onClose={() => setOpen(false)}>
         <Alert
           onClose={() => setOpen(false)}
