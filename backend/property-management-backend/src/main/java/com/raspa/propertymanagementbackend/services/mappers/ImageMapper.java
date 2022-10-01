@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class})
+@Mapper(componentModel = "spring", uses = {})
 public interface ImageMapper {
     ImageMapper INSTANCE=Mappers.getMapper(ImageMapper.class);
     Image convertToEntity(ImageDTO imageDTO);

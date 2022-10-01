@@ -1,24 +1,20 @@
-import {
-  Box,
-  Container,
-  Grid,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  FormControl,
-} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState, useEffect } from "react";
+import {
+  Button, Container, FormControl, Grid,
+  InputLabel, MenuItem, Select
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ImageCarousal from "../../components/ImageCarousal";
 import PropertyCard from "../../components/PropertyCard";
-import { useDispatch, useSelector } from "react-redux";
 import { loadProperties } from "../../store/slices/properties/propertySlice";
 import { selectProperties } from "../../store/slices/properties/selectors";
-import { Link } from "react-router-dom";
+import FavListModal from "./FavListModal";
 
 const HomePage = (props) => {
   const [location, setLocation] = useState("");
+  const [createModelShow, setCreateModelShow] = useState(false);
+  const [fav, setFav] = useState(null);
   const [propertyType, setPropertyType] = useState("");
   const properties = useSelector((state) => selectProperties(state));
   const dispatch = useDispatch();
@@ -30,6 +26,15 @@ const HomePage = (props) => {
       setLocation(e.target.value);
     }
   };
+
+  const onFavClicked = (fav) => {
+    setFav(fav);
+    setCreateModelShow(true);
+
+  }
+  const onCreateConfirmClicked = (fav) => {
+    setFav(fav);
+  }
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -123,12 +128,13 @@ const HomePage = (props) => {
             const href = `/property-details/${item.id}`;
             return (
               <Grid item>
-                <PropertyCard property={item} href={href} />
+                <PropertyCard property={item} href={href} onFavClicked={onFavClicked} />
               </Grid>
             );
           })}
         </Grid>
       </Container>
+      { createModelShow && <FavListModal item={fav}  open={createModelShow} setOpen={setCreateModelShow} onCreateConfirmClicked={onCreateConfirmClicked}  />}
     </Container>
   );
 };

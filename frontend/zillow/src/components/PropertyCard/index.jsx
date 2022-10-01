@@ -31,7 +31,7 @@ const PropertyCard = (props) => {
     <Card sx={{ maxWidth: 345, width: 345, height: 410 }}>
       <CardHeader
         action={
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" onClick={() => props.onFavClicked(props.property)}>
             <FavoriteIcon />
           </IconButton>
         }

@@ -1,7 +1,9 @@
 package com.raspa.propertymanagementbackend.services.impl;
 
 import com.raspa.propertymanagementbackend.entities.DTOs.PropertyDTO;
+import com.raspa.propertymanagementbackend.entities.DTOs.PropertyPerLocationDTO;
 import com.raspa.propertymanagementbackend.entities.Image;
+import com.raspa.propertymanagementbackend.entities.Location;
 import com.raspa.propertymanagementbackend.entities.Property;
 import com.raspa.propertymanagementbackend.exceptions.BadRequestAlertException;
 import com.raspa.propertymanagementbackend.repositories.ImageRepository;
@@ -22,8 +24,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,6 @@ PropertyServiceImpl implements PropertyService {
 
     private final PropertyRepository propertyRepository;
     private final PropertyMapper propertyMapper;
-    private final LocationMapper locationMapper;
     private final LocationRepository locationRepository;
     private final UserSecurityService userSecurityService;
     private final CloudinaryService cloudinaryService;
@@ -117,5 +117,14 @@ PropertyServiceImpl implements PropertyService {
         Property property = propertyRepository.findById(id).orElseThrow(() -> new RuntimeException("Invalid ID!"));
         propertyRepository.delete(property);
         return propertyMapper.convertToDto(property);
+    }
+
+    @Override
+    public List<PropertyPerLocationDTO> findPropertiesByLocationStats() {
+        List<Location> locations = locationRepository.findAll();
+        List<PropertyPerLocationDTO> propertyPerLocationDTOS = new ArrayList<>();
+        for(Location location: locations)
+            propertyPerLocationDTOS.add(new PropertyPerLocationDTO(location.getName(), location.getProperties().size()));
+        return propertyPerLocationDTOS;
     }
 }

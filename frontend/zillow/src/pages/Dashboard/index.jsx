@@ -13,9 +13,10 @@ import {
   TextField,
 } from "@mui/material";
 import Container from "@mui/material/Container";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import PropertyBarChart from "../../components/Charts/PropertyBarChart";
 import PropertyPieChart from "../../components/Charts/PropertyPieChart";
+import {get} from "../../api";
 
 export default function Dashboard() {
   const rows = [
@@ -28,6 +29,16 @@ export default function Dashboard() {
 
   const [value, setValue] = useState("");
   const [data, setData] = useState(rows);
+  const [applications, setApplications] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    get("/api/applications").then(res => {
+      console.log(res.data.content);
+      setApplications(res.data.content)
+    });
+    get("/api/users").then(res => setUsers(res.data));
+  }, []);
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -98,34 +109,66 @@ export default function Dashboard() {
         </Grid>
         <br />
         <br />
+        <h1>Recent Applications</h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                <TableCell>Property Title</TableCell>
+                <TableCell align="right">User</TableCell>
+                <TableCell align="right">Is For Rent</TableCell>
+                <TableCell align="right">Is For Buying</TableCell>
+                <TableCell align="right">Submission Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row) => (
+              {applications.map((application) => (
                 <TableRow
-                  key={row.name}
+                  key={application.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {application.property.title}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+                  <TableCell align="right">{application.user.username}</TableCell>
+                  <TableCell align="right">{application.isForRent ? "Yes" : "No"}</TableCell>
+                  <TableCell align="right">{application.isForSell ? "Yes" : "No"}</TableCell>
+                  <TableCell align="right">{application.submissionDate}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <br/>
+        <h1>Recent Registered Users</h1>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell align="right">Username</TableCell>
+                <TableCell align="right">Full Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Phone Number</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                  <TableRow
+                      key={user.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {user.username}
+                    </TableCell>
+                    <TableCell align="right">{user.username}</TableCell>
+                    <TableCell align="right">{user.fullName}</TableCell>
+                    <TableCell align="right">{user.email}</TableCell>
+                    <TableCell align="right">{user.phoneNumber}</TableCell>
+                  </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <br/>
         <Box>
           <PropertyBarChart
             title="Properties Rented By Location"
