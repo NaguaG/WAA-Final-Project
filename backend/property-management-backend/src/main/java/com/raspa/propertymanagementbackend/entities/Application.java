@@ -3,6 +3,10 @@ package com.raspa.propertymanagementbackend.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +15,9 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE application SET deleted = true WHERE id=?")
+@FilterDef(name = "deletedApplicationFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedApplicationFilter", condition = "deleted = :isDeleted")
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +32,5 @@ public class Application {
     @ManyToOne
     private Property property;
 
+    private boolean deleted = Boolean.FALSE;
 }

@@ -1,6 +1,7 @@
 package com.raspa.propertymanagementbackend.controllers;
 
 import com.raspa.propertymanagementbackend.entities.DTOs.PropertyDTO;
+import com.raspa.propertymanagementbackend.entities.DTOs.PropertyPerLocationDTO;
 import com.raspa.propertymanagementbackend.exceptions.BadRequestAlertException;
 import com.raspa.propertymanagementbackend.services.PropertyService;
 import com.raspa.propertymanagementbackend.services.impl.MailServiceImpl;
@@ -13,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +31,12 @@ public class PropertyController {
     @GetMapping("/{id}")
     public PropertyDTO findById(@PathVariable Long id) {
         return propertyService.findById(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/perLocationStats")
+    public List<PropertyPerLocationDTO> findPropertiesByLocationStats() {
+        return propertyService.findPropertiesByLocationStats();
     }
 
     @PreAuthorize("hasRole('ROLE_OWNER')")
