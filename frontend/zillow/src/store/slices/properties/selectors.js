@@ -10,12 +10,19 @@ const selectPropertyDetails = (state, id) => {
 };
 
 const selectPropertyStats = (state) => {
+  if (!state?.properties?.propertyStats) {
+    return {
+      names: [],
+      counts: [],
+    };
+  }
+
   const names = state.properties.propertyStats.map((stats) => stats.name);
   const counts = state.properties.propertyStats.map((stats) => stats.value);
 
   return {
-    names: names.length > 0 ? names : [],
-    counts: counts.length > 0 ? counts : [],
+    names,
+    counts,
   };
 };
 
