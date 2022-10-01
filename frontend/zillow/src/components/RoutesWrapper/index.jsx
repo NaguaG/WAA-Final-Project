@@ -19,6 +19,7 @@ import CreateUser from "../../pages/Users/CreateUser";
 import ViewUser from "../../pages/Users/ViewUser";
 import ResetUserPassword from "../../pages/Users/ResetUserPassword";
 import PropertyDetails from "../../pages/PropertyDetails";
+import ResetPassword from "../../pages/Auth/ResetPassword";
 
 const anchor = "left";
 
@@ -70,6 +71,7 @@ const RoutesWrapper = () => {
           <Route
             path="/property-details/:id"
             element={<PropertyDetails />}></Route>
+          <Route path="/reset-password" element={<ResetPassword />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>
