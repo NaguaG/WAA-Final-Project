@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  ButtonGroup
 } from "@mui/material";
 import Container from "@mui/material/Container";
 import React, { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchProperties } from "../../store/slices/property/propertySlice";
 
 export default function Properties() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const fetchData = () => {
     dispatch(fetchProperties()).then((res) => {
@@ -29,7 +31,6 @@ export default function Properties() {
     fetchData();
   }, []);
 
-  const navigate = useNavigate();
   const rows = [
     createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
     createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
@@ -50,7 +51,8 @@ export default function Properties() {
   });
   
   const [data, setData] = useState([]);
-
+  const [deletModelShow, setDeletModelShow] = useState(false);
+  const [deleteData, setDeleteData] = useState(null);
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
   }
@@ -66,7 +68,17 @@ export default function Properties() {
       ...values, [event.target.name]: event.target.value
     })
   };
-
+  function onBtnClicked(type, item){
+    if(type == 'view'){
+      navigate(`/property-details/${item.id}`)
+    } else if( type == 'edit'){
+      navigate(`/dashboard/properties/${item.id}/edit`)
+    } else {
+      // disable
+      setDeletModelShow(!deletModelShow)
+      setDeleteData(item);
+    }
+  }
  
   return (
     <>
@@ -186,6 +198,23 @@ export default function Properties() {
                   <TableCell align='right'>{row.price}</TableCell>
                   <TableCell align='right'>{row.propertyType}</TableCell> 
                   <TableCell align='right'>{row.numberOfRooms}</TableCell>
+
+                
+                  <TableCell align="right">
+                    <ButtonGroup variant="contained">
+                      <Button size="small" color="secondary" onClick={()=> {onBtnClicked('view',row)}}>View</Button>
+                      <Button size="small" color="success" onClick={()=> {onBtnClicked('edit',row)}}>Edit</Button>
+                      <Button size="small" color={row.enabled ? "error" : "secondary"} onClick={()=>
+                         {onBtnClicked('disable',row)}}>
+                          {row.enabled ? "Disable" : "Enable"}
+                      </Button>
+                    </ButtonGroup>
+                  </TableCell>
+
+                
+                
+                
+                
                 </TableRow>
               ))}
             </TableBody>
