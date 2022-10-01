@@ -16,6 +16,6 @@ public class ApplicationDTO {
     private Boolean isForSell;
     private UserDTO user;
     private PropertyDTO property;
-    private LocalDate submissionDate;
+    private String submissionDate;
 
 }
