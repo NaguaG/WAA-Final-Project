@@ -27,7 +27,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PropertyServiceImpl implements PropertyService {
+public class
+PropertyServiceImpl implements PropertyService {
 
     private final PropertyRepository propertyRepository;
     private final PropertyMapper propertyMapper;

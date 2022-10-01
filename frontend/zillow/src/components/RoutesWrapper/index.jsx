@@ -84,7 +84,7 @@ const RoutesWrapper = () => {
             path="/dashboard/properties/:id/edit"
             element={
               <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
-                <Properties />
+                <CreateProperty />
               </WithAuth>
             }></Route>
 

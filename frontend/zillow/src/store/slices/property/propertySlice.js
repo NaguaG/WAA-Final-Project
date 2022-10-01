@@ -19,15 +19,14 @@ const initialState={
 //==================
 const param={
     name:'property',
-    initialState:initialState,
+    initialState,
     reducers:{
         loadProperty:(state)=>{
-
         }
     },
 
     extraReducers:(builder)=>{
-      builder.addCase(fetchProperty.pending, (state)=>
+      builder.addCase(fetchProperties.pending, (state)=>
       {
         state.loading=true;
         state.success=false;
@@ -36,14 +35,14 @@ const param={
       });
     //========================================================
 
-    builder.addCase(fetchProperty.fulfilled,(state,action)=>{
+    builder.addCase(fetchProperties.fulfilled,(state,action)=>{
       state.loading=false;
       state.success=true;
       state.error=false;
       state.properties=action.payload;
     });
 
-    builder.addCase(fetchProperty.rejected, (state)=>{
+    builder.addCase(fetchProperties.rejected, (state)=>{
       state.properties=[];
       state.loading=false;
       state.success=false;
@@ -51,8 +50,8 @@ const param={
     })
 
 }}
-const propertySlice=createSlice(param);
+const propertyDashboardSlice=createSlice(param);
 
-export default propertySlice.reducer;
+export default propertyDashboardSlice.reducer;
 
 
