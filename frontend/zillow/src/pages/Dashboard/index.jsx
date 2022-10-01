@@ -37,7 +37,7 @@ export default function Dashboard() {
       console.log(res.data.content);
       setApplications(res.data.content)
     });
-    get("/api/users").then(res => setUsers(res.data.content));
+    get("/api/users").then(res => setUsers(res.data));
   }, []);
 
   function createData(name, calories, fat, carbs, protein) {
@@ -118,10 +118,11 @@ export default function Dashboard() {
                 <TableCell align="right">User</TableCell>
                 <TableCell align="right">Is For Rent</TableCell>
                 <TableCell align="right">Is For Buying</TableCell>
+                <TableCell align="right">Submission Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {applications.reverse().map((application) => (
+              {applications.map((application) => (
                 <TableRow
                   key={application.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -131,12 +132,43 @@ export default function Dashboard() {
                   <TableCell align="right">{application.user.username}</TableCell>
                   <TableCell align="right">{application.isForRent ? "Yes" : "No"}</TableCell>
                   <TableCell align="right">{application.isForSell ? "Yes" : "No"}</TableCell>
-                  {/*<TableCell align="right">{row.protein}</TableCell>*/}
+                  <TableCell align="right">{application.submissionDate}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <br/>
+        <h1>Recent Registered Users</h1>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell align="right">Username</TableCell>
+                <TableCell align="right">Full Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Phone Number</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                  <TableRow
+                      key={user.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {user.username}
+                    </TableCell>
+                    <TableCell align="right">{user.username}</TableCell>
+                    <TableCell align="right">{user.fullName}</TableCell>
+                    <TableCell align="right">{user.email}</TableCell>
+                    <TableCell align="right">{user.phoneNumber}</TableCell>
+                  </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <br/>
         <Box>
           <PropertyBarChart
             title="Properties Rented By Location"
