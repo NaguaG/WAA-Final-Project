@@ -24,9 +24,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HomeIcon from "@mui/icons-material/Home";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useState } from "react";
+import FavListModal from "../HomePage/FavListModal";
 
 const PropertyDetails = (props) => {
   const params = useParams();
+  const [createModelShow, setCreateModelShow] = useState(false)
+  const [fav, setFav] = useState(null);
   const propertyDetails = useSelector((state) =>
     selectPropertyDetails(state, parseInt(params.id))
   );
@@ -34,7 +38,19 @@ const PropertyDetails = (props) => {
 
   console.log("Property Data: ", propertyDetails);
 
+
+
+  const onFavClicked = (fav) => {
+    console.log('====================================');
+    console.log('dddd', fav);
+    console.log('====================================');
+    setFav(fav);
+    setCreateModelShow(true);
+
+  }
+
   const {
+    id,
     isForRent,
     price,
     title,
@@ -66,7 +82,7 @@ const PropertyDetails = (props) => {
             title={title}
             subheader={propertyType}
             action={
-              <IconButton aria-label="add to favorites">
+              <IconButton aria-label="add to favorites" onClick={()=>onFavClicked(propertyDetails)}>
                 <FavoriteIcon />
               </IconButton>
             }></CardHeader>
@@ -147,6 +163,7 @@ const PropertyDetails = (props) => {
           </CardActions>
         </Card>
       </Grid>
+      { createModelShow && <FavListModal item={fav}  open={createModelShow} setOpen={setCreateModelShow} />}
     </Container>
   );
 };

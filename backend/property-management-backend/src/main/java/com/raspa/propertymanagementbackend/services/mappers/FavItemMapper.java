@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {FavListMapper.class})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, PropertyMapper.class})
 public interface FavItemMapper {
     FavItemMapper INSTANCE = Mappers.getMapper(FavItemMapper.class);
 

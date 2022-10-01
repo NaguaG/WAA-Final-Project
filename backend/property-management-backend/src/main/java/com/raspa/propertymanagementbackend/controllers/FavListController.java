@@ -1,5 +1,6 @@
 package com.raspa.propertymanagementbackend.controllers;
 
+import com.raspa.propertymanagementbackend.entities.DTOs.FavItemDTO;
 import com.raspa.propertymanagementbackend.entities.DTOs.FavListDTO;
 import com.raspa.propertymanagementbackend.services.FavListService;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +34,22 @@ public class FavListController {
         return favListService.update(id, favListDTO);
     }
 
+    @PutMapping("/item/{id}")
+    public FavItemDTO updateItem(@PathVariable Long id, @RequestBody FavItemDTO favItemDTO){
+        return favListService.updateItem(id, favItemDTO);
+    }
+
 
     //delete
     @DeleteMapping("/{id}")
     public FavListDTO delete(@PathVariable Long id){
         return favListService.delete(id);
+    }
+
+
+    @DeleteMapping("/item/{id}")
+    public FavItemDTO deleteItem(@PathVariable Long id){
+        return favListService.deleteItem(id);
     }
 
 
