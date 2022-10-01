@@ -7,4 +7,8 @@ const isLoggedIn = (state) => {
   );
 };
 
-export { isLoggedIn };
+const selectAuth = (state) => {
+  return state?.user?.user?.scopes;
+};
+
+export { isLoggedIn, selectAuth };

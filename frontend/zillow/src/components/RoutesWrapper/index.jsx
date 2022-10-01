@@ -20,6 +20,7 @@ import ViewUser from "../../pages/Users/ViewUser";
 import ResetUserPassword from "../../pages/Users/ResetUserPassword";
 import PropertyDetails from "../../pages/PropertyDetails";
 import ResetPassword from "../../pages/Auth/ResetPassword";
+import WithAuth from "../../pages/Auth/WithAuth";
 
 const anchor = "left";
 
@@ -43,30 +44,85 @@ const RoutesWrapper = () => {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/logout" element={<Logout />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/dashboard/fav" element={<FavList />}></Route>
-          <Route path="/dashboard/fav/create" element={<CreateFav />}></Route>
-          <Route path="/dashboard/properties" element={<Properties />}></Route>
+
+          <Route
+            path="/dashboard"
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <Dashboard />
+              </WithAuth>
+            }></Route>
+          <Route
+            path="/dashboard/fav"
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <FavList />
+              </WithAuth>
+            }></Route>
+          <Route
+            path="/dashboard/fav/create"
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <CreateFav />
+              </WithAuth>
+            }></Route>
+          <Route
+            path="/dashboard/properties"
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <Properties />
+              </WithAuth>
+            }></Route>
           <Route
             path="/dashboard/properties/create"
-            element={<CreateProperty />}></Route>
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <CreateProperty />
+              </WithAuth>
+            }></Route>
           <Route
             path="/dashboard/properties/:id/edit"
-            element={<Properties />}></Route>
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <Properties />
+              </WithAuth>
+            }></Route>
 
-          <Route path="/dashboard/users" element={<Users />}></Route>
+          <Route
+            path="/dashboard/users"
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <Users />
+              </WithAuth>
+            }></Route>
           <Route
             path="/dashboard/users/:id/view"
-            element={<ViewUser />}></Route>
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <ViewUser />
+              </WithAuth>
+            }></Route>
           <Route
             path="/dashboard/users/:id/edit"
-            element={<CreateUser />}></Route>
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <CreateUser />
+              </WithAuth>
+            }></Route>
           <Route
             path="/dashboard/users/:id/passwordReset"
-            element={<ResetUserPassword />}></Route>
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <ResetUserPassword />
+              </WithAuth>
+            }></Route>
           <Route
             path="/dashboard/applications"
-            element={<Applications />}></Route>
+            element={
+              <WithAuth roles={["ROLE_ADMIN", "ROLE_OWNER"]}>
+                <Applications />
+              </WithAuth>
+            }></Route>
 
           <Route
             path="/property-details/:id"
