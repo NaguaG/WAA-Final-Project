@@ -20,18 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class PropertyController {
 
     private final PropertyService propertyService;
-    private final MailServiceImpl mailService;
 
     @GetMapping
     public Page<PropertyDTO> findAll(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom("abc2017x@gmail.com");
-        simpleMailMessage.setTo("gyawali.rajiv@gmail.com");
-        simpleMailMessage.setSubject("Test");
-        simpleMailMessage.setText("This is awesome.");
-        mailService.sendMessage(simpleMailMessage);
-
-
         return propertyService.findAll(pageable, queryParams);
     }
     @GetMapping("/{id}")
