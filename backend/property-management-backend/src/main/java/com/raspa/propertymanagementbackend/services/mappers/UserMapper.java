@@ -20,6 +20,7 @@ public interface UserMapper {
 
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "properties", ignore = true)
+    @Mapping(target = "applications", ignore = true)
     @Named("convertToDtoUser")
     UserDTO convertToDtoUser(User user);
 
