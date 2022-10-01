@@ -18,11 +18,16 @@ VALUES  ('Fairfield'), ('Black Hawk County'),('Johnson County'),('Linn County'),
 
 --PROPERTY
 INSERT INTO property (description,home_type,is_for_rent,is_for_sell,number_of_rooms,price,property_type,location_id,user_id,title,deleted)
-values ('This gorgeous and nearly perfect house will stun you with its modern and dazzling interior finishes.','dont know',true,false,12,2000.00,'Apartment',1,2,'New home 1',false),
+values ('This gorgeous and nearly perfect house will stun you with its modern and dazzling interior finishes.','Vacant land',true,false,12,2000.00,'Apartment',1,2,'New home 1',false),
+       ('will stun you with its modern and dazzling interior finishes.','Other',true,false,12,2500.00,'Res',2,2,'New home 2',false),
+       ('with its modern and dazzling interior finishes.','Coop Unit',true,false,13,1500.00,'condo',3,2,'New home 3',false),
+        (' stun you with its modern and dazzling interior finishes.','Condo',true,false,21,2300.00,'condoNew',4,4,'New home 4',false),
+        ('dazzling interior finishes.','Mobile / Manufactured',true,false,10,2200.00,'condo',5,1,'New home 5',false),
+        ('This gorgeous and nearly perfect house will stun you with its modern and dazzling interior finishes.','dont know',true,false,12,2000.00,'Apartment',1,2,'New home 1',false),
        ('will stun you with its modern and dazzling interior finishes.',' dont know',true,false,12,2500.00,'Res',2,2,'New home 2',false),
-       ('with its modern and dazzling interior finishes.','dont know',true,false,12,1500.00,'condo',3,2,'New home 3',false),
-        (' stun you with its modern and dazzling interior finishes.','home type dont know',true,false,12,2300.00,'condoNew',2,4,'New home 4',false),
-        ('dazzling interior finishes.','home type dont know',true,false,12,2200.00,'condo',2,4,'New home 5',false);
+       ('with its modern and dazzling interior finishes.','Multi family',true,false,13,1500.00,'condo',3,2,'New home 3',false),
+       (' stun you with its modern and dazzling interior finishes.','Townhouse',true,false,21,2300.00,'condoNew',4,4,'New home 4',false),
+       ('dazzling interior finishes.','ownhouse',true,false,10,2200.00,'condo',5,4,'New home 5',false);
 
 --IMAGE
 INSERT INTO image (url,property_id)
