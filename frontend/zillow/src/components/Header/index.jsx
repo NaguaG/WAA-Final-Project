@@ -15,14 +15,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toogleSideBar } from "../../store/slices/sidebar/sidebarSlice";
-import { isLoggedIn } from "../../store/slices/user/selectors";
+import { isLoggedIn, selectAuth } from "../../store/slices/user/selectors";
 import { useSelector } from "react-redux";
-
-const settings = [
-  { label: "Reset Password", to: "/reset-password" },
-  { label: "Dashboard", to: "/dashboard" },
-  { label: "Logout", to: "/logout" },
-];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -31,13 +25,23 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const isSignedIn = useSelector((state) => isLoggedIn(state));
+  const userRole = useSelector((state) => selectAuth(state));
+
+  const AUTH_ROLES = ["ROLE_ADMIN", "ROLE_OWNER"];
+  const isAuthorized = isSignedIn && AUTH_ROLES.includes(userRole);
+
+  const settings = [
+    { label: "Dashboard", to: "/dashboard" },
+    { label: "Reset Password", to: "/reset-password" },
+    { label: "Logout", to: "/logout" },
+  ];
+
+  if (!isAuthorized) {
+    settings.shift();
+  }
 
   const handleOpenDrawerMenu = (event) => {
     dispatch(toogleSideBar());
-  };
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
   };
 
   const handleOpenUserMenu = (event) => {
@@ -56,7 +60,7 @@ const Header = () => {
     <AppBar sx={{ backgroundColor: "black" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {isSignedIn && (
+          {isAuthorized && (
             <MenuIcon
               sx={{ cursor: "pointer" }}
               onClick={handleOpenDrawerMenu}
