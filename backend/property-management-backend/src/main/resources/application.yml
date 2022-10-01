@@ -23,6 +23,17 @@ spring:
 server:
   port: 8081
 
+cloud:
+  aws:
+    region:
+      static: ap-south-1
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: AKIAWZGNZWPGC2JUW3G3
+      secret-key: 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
+
 #keycloak:
 #  auth-server-url: http://localhost:8080
 #  realm: Rajiv
