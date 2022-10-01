@@ -36,6 +36,20 @@ export const signupUser = createAsyncThunk(
   }
 );
 
+export const resetPassword = createAsyncThunk(
+  "user/reset-password",
+  async (params) => {
+    try {
+      const response = await post("/api/reset-password", {
+        password: params.password,
+      });
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
 const initialState = {
   loading: false,
   user: {},
@@ -98,6 +112,20 @@ const userSlice = createSlice({
       state.error = true;
     });
     /********************************************************** */
+
+    builder.addCase(resetPassword.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(resetPassword.fulfilled, (state) => {
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    });
+    builder.addCase(resetPassword.rejected, (state, action) => {
+      state.loading = false;
+      state.success = false;
+      state.error = true;
+    });
   },
 });
 
