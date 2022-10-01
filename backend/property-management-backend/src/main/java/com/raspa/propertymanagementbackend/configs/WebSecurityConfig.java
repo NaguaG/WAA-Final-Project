@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/properties").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/properties/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/applications").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/applications/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/register/validUsername/{username}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/register/validEmail/{email}").permitAll()
                 .antMatchers("/api/token").permitAll()

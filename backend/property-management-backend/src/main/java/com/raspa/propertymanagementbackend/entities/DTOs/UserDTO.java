@@ -25,4 +25,6 @@ public class UserDTO {
     private List<PropertyDTO> properties;
     private List<FavListDTO> favListDTOS;
     private Set<Role> roles;
+    private List<ApplicationDTO> applications;
+
 }

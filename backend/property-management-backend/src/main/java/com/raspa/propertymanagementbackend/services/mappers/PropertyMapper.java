@@ -13,6 +13,7 @@ public interface PropertyMapper {
     Property convertToEntity(PropertyDTO propertyDTO);
 
     @Mapping(target = "user",ignore = true)
+    @Mapping(target = "applications",ignore = true)
     PropertyDTO convertToDto(Property property);
 
 }

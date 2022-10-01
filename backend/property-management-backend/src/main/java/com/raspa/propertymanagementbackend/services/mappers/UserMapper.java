@@ -15,10 +15,12 @@ public interface UserMapper {
     User convertToEntity(UserDTO userDTO);
 
     @Mapping(target = "properties", ignore = true)
+    @Mapping(target = "applications", ignore = true)
     UserDTO convertToDto(User user);
 
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "properties", ignore = true)
+    @Mapping(target = "applications", ignore = true)
     @Named("convertToDtoUser")
     UserDTO convertToDtoUser(User user);
 
