@@ -38,4 +38,14 @@ public class ApplicationSpecification {
             }
         };
     }
+
+    public static Specification applicationHasUser(User user) {
+        return new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder criteriaBuilder) {
+                Join<Application, Property> applicationUserJoin = root.join(Application_.user);
+                return applicationUserJoin.get(Property_.id).in(user.getId());
+            }
+        };
+    }
 }
