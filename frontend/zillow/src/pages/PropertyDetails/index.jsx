@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { selectPropertyDetails } from "../../store/slices/properties/selectors";
 import Card from "@mui/material/Card";
@@ -26,32 +26,38 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import FavListModal from "../HomePage/FavListModal";
+import { applyForProperty } from "../../store/slices/properties/propertySlice";
+import CustomSnackBar from "../../components/SnackBar";
 
 const PropertyDetails = (props) => {
   const params = useParams();
-  const [createModelShow, setCreateModelShow] = useState(false)
+  const dispatch = useDispatch();
+  const [createModelShow, setCreateModelShow] = useState(false);
   const [fav, setFav] = useState(null);
   const propertyDetails = useSelector((state) =>
     selectPropertyDetails(state, parseInt(params.id))
+  );
+  const [open, setOpen] = useState(false);
+  const [severity, setSeverity] = useState("sluccess");
+  const [message, setMessage] = useState(
+    "Application has been submitted successfully"
   );
   const navigate = useNavigate();
 
   console.log("Property Data: ", propertyDetails);
 
-
-
   const onFavClicked = (fav) => {
-    console.log('====================================');
-    console.log('dddd', fav);
-    console.log('====================================');
+    console.log("====================================");
+    console.log("dddd", fav);
+    console.log("====================================");
     setFav(fav);
     setCreateModelShow(true);
-
-  }
+  };
 
   const {
     id,
     isForRent,
+    isForSell,
     price,
     title,
     propertyType,
@@ -61,10 +67,34 @@ const PropertyDetails = (props) => {
     numberOfRooms,
   } = propertyDetails;
 
+  const apply = () => {
+    dispatch(
+      applyForProperty({
+        payload: {
+          isForRent,
+          isForSell,
+          property: {
+            id,
+          },
+        },
+      })
+    ).then((res) => {
+      setOpen(true);
+    });
+  };
+
   const buttonText = isForRent ? "Rent" : "Buy";
 
   return (
     <Container component="main">
+      {open && (
+        <CustomSnackBar
+          open={open}
+          setOpen={setOpen}
+          severity={severity}
+          message={message}
+        />
+      )}
       <Grid
         container
         spacing={1}
@@ -82,7 +112,9 @@ const PropertyDetails = (props) => {
             title={title}
             subheader={propertyType}
             action={
-              <IconButton aria-label="add to favorites" onClick={()=>onFavClicked(propertyDetails)}>
+              <IconButton
+                aria-label="add to favorites"
+                onClick={() => onFavClicked(propertyDetails)}>
                 <FavoriteIcon />
               </IconButton>
             }></CardHeader>
@@ -157,13 +189,22 @@ const PropertyDetails = (props) => {
             </Box>
           </CardContent>
           <CardActions sx={{ justifyContent: "center" }}>
-            <Button sx={{ width: "200px" }} variant={"contained"}>
+            <Button
+              onClick={apply}
+              sx={{ width: "200px" }}
+              variant={"contained"}>
               {buttonText}
             </Button>
           </CardActions>
         </Card>
       </Grid>
-      { createModelShow && <FavListModal item={fav}  open={createModelShow} setOpen={setCreateModelShow} />}
+      {createModelShow && (
+        <FavListModal
+          item={fav}
+          open={createModelShow}
+          setOpen={setCreateModelShow}
+        />
+      )}
     </Container>
   );
 };
