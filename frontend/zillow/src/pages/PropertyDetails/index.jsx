@@ -38,7 +38,7 @@ const PropertyDetails = (props) => {
     selectPropertyDetails(state, parseInt(params.id))
   );
   const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("sluccess");
+  const [severity, setSeverity] = useState("success");
   const [message, setMessage] = useState(
     "Application has been submitted successfully"
   );
